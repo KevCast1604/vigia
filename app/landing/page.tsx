@@ -14,6 +14,7 @@ import {
 import Hero from '@/components/landing/Hero';
 import ImpactMetrics from '@/components/landing/ImpactMetrics';
 import AboutUs from '@/components/landing/AboutUs';
+import MissionVision from '@/components/landing/MissionVision';
 
 export default function LandingPage() {
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
@@ -111,7 +112,10 @@ export default function LandingPage() {
       {/* 5. Seccion Sobre Nosotros (About Us) con Imagen y Metodologia */}
       <AboutUs onOpenEmergencyModal={handleOpenEmergency} />
 
-      {/* 6. Modal Radix UI de Canales de Emergencia PNP */}
+      {/* 6. Seccion Mision y Vision */}
+      <MissionVision />
+
+      {/* 7. Modal Radix UI de Canales de Emergencia PNP */}
       <Dialog.Root open={isEmergencyModalOpen} onOpenChange={setIsEmergencyModalOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 animate-in fade-in" />
