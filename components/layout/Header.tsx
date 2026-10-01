@@ -34,10 +34,35 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="bg-white/95 backdrop-blur border-b border-slate-200 px-4 sm:px-6 py-2.5 flex items-center justify-between shrink-0 z-30">
       {/* Logotipo y Título */}
       <div className="flex items-center gap-3">
+        <Link
+          href="/landing"
+          className="flex items-center gap-2.5 group transition-opacity hover:opacity-95 shrink-0"
+          title="Ir a la presentación de VIGIA"
+        >
+          <Image
+            src="/images/vigia-logo.jpg"
+            alt="Logo VIGIA"
+            width={40}
+            height={40}
+            className="w-10 h-10 rounded-xl object-contain border border-slate-200/80 bg-white shadow-xs group-hover:border-blue-300 transition-colors shrink-0"
+            priority
+          />
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
+                VIGIA
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
+              Inteligencia Comunitaria y Escudo Antiextorsión
+            </p>
+          </div>
+        </Link>
+
         {onToggleSidebar && (
           <button
             onClick={onToggleSidebar}
-            className="hidden md:flex p-1.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 transition-colors shadow-xs"
+            className="hidden md:flex p-1.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 transition-colors shadow-xs ml-1"
             title={isSidebarOpen ? 'Colapsar panel lateral' : 'Expandir panel lateral'}
           >
             {isSidebarOpen ? (
@@ -47,25 +72,6 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </button>
         )}
-
-        <Image
-          src="/images/vigia-logo.jpg"
-          alt="Logo VIGIA"
-          width={36}
-          height={36}
-          className="w-9 h-9 rounded-xl object-contain border border-slate-200/80 bg-white shadow-xs shrink-0"
-          priority
-        />
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
-              VIGIA
-            </span>
-          </div>
-          <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
-            Inteligencia Comunitaria y Escudo Antiextorsión
-          </p>
-        </div>
       </div>
 
       {/* Pestañas de Navegación en Desktop (Sin Emojis, con Lucide Icons) */}
