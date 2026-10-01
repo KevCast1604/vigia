@@ -16,7 +16,6 @@ export default function VigiaHomePage() {
   const [currentView, setCurrentView] = useState<ViewType>('radar');
   const [selectedDistrict, setSelectedDistrict] = useState<DistrictKey>('sjl');
   const [isHelpOpen, setIsHelpOpen] = useState(false);
-  const [isQuickExitOpen, setIsQuickExitOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState<'panel' | 'map'>('panel');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
@@ -30,7 +29,7 @@ export default function VigiaHomePage() {
 
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-slate-100 antialiased font-sans">
-      {/* 1. Cabecera Principal con Pestañas, Toggle de Sidebar y Salida Rápida */}
+      {/* 1. Cabecera Principal con Pestañas, Toggle de Sidebar y Visítanos */}
       <Header
         currentView={currentView}
         onViewChange={(view) => {
@@ -39,7 +38,6 @@ export default function VigiaHomePage() {
           setIsSidebarOpen(true);
         }}
         onOpenHelp={() => setIsHelpOpen(true)}
-        onQuickExit={() => setIsQuickExitOpen(true)}
         isSidebarOpen={isSidebarOpen}
         onToggleSidebar={toggleSidebar}
       />
@@ -148,12 +146,10 @@ export default function VigiaHomePage() {
         }}
       />
 
-      {/* 5. Modales (Canales PNP y Salida Rápida) */}
+      {/* 5. Modal Canales Oficiales PNP */}
       <Modals
         isHelpOpen={isHelpOpen}
         onCloseHelp={() => setIsHelpOpen(false)}
-        isQuickExitOpen={isQuickExitOpen}
-        onCloseQuickExit={() => setIsQuickExitOpen(false)}
       />
     </div>
   );

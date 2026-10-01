@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { MapPin, ShieldCheck, Users, TrendingUp, Search, PlusCircle } from 'lucide-react';
+import { ShieldCheck, Users, TrendingUp, Search, PlusCircle } from 'lucide-react';
 import { DistrictKey, DistrictStats, ViewType } from '@/lib/types';
 import { LIMA_DISTRICTS } from '@/lib/districts-data';
 
@@ -10,6 +10,13 @@ interface RadarPanelProps {
   onDistrictChange: (district: DistrictKey) => void;
   onSwitchView: (view: ViewType) => void;
 }
+
+const RISK_LABELS: Record<DistrictStats['riskLevel'], { label: string; badge: string; dot: string }> = {
+  'very-high': { label: 'Muy Alto', badge: 'bg-red-50 text-red-700 border-red-200', dot: 'bg-red-500' },
+  high: { label: 'Alto', badge: 'bg-orange-50 text-orange-700 border-orange-200', dot: 'bg-orange-500' },
+  medium: { label: 'Medio', badge: 'bg-amber-50 text-amber-700 border-amber-200', dot: 'bg-amber-500' },
+  moderate: { label: 'Moderado', badge: 'bg-blue-50 text-blue-700 border-blue-200', dot: 'bg-blue-500' }
+};
 
 export const RadarPanel: React.FC<RadarPanelProps> = ({
   selectedDistrict,
@@ -34,28 +41,45 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
       </div>
 
       {/* Selector de Distrito */}
-      <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-1.5 shadow-xs">
-        <label htmlFor="district-select" className="text-xs font-bold text-slate-700 flex items-center justify-between">
-          <span className="flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-blue-600" />
-            Distrito seleccionado:
+      <div className="bg-blue-50/30 p-3.5 rounded-2xl border border-blue-200/80 space-y-2 shadow-xs">
+        <label htmlFor="district-select" className="text-xs font-bold text-slate-800 flex items-center justify-between">
+          <span className="flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
+            </span>
+            <span className="text-[11px] font-black uppercase tracking-wider text-blue-900">
+              Distrito Seleccionado:
+            </span>
           </span>
-          <span className="text-[10px] text-slate-400 font-normal">O pulsa en el mapa</span>
+          <span className="text-[10px] text-slate-400 font-medium">Intercambiable en el mapa</span>
         </label>
         <select
           id="district-select"
           value={selectedDistrict}
           onChange={(e) => onDistrictChange(e.target.value as DistrictKey)}
-          className="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-sm text-slate-900 font-semibold focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 shadow-xs"
+          className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 font-bold focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-200 shadow-xs cursor-pointer"
         >
           {Object.values(LIMA_DISTRICTS).map((d) => (
             <option key={d.key} value={d.key}>
-              {d.name}
+              {d.name} ({d.officialComplaints.toLocaleString()} denuncias)
             </option>
           ))}
         </select>
-        <div className="text-[11px] text-slate-500 font-medium">
-          Zona representativa: <strong className="text-slate-700">{currentData.sectorName}</strong>
+        <div className="flex items-center justify-between text-[11px] text-slate-600 font-medium pt-0.5">
+          <span>Zona: <strong className="text-slate-800">{currentData.sectorName}</strong></span>
+          <span
+            className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full font-bold text-[10px] border shrink-0 ${
+              RISK_LABELS[currentData.riskLevel].badge
+            }`}
+          >
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                RISK_LABELS[currentData.riskLevel].dot
+              }`}
+            />
+            Nivel {RISK_LABELS[currentData.riskLevel].label}
+          </span>
         </div>
       </div>
 

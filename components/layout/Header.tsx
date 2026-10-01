@@ -1,13 +1,14 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { 
   Shield, 
   Search, 
   FileText, 
   Lock, 
   PhoneCall, 
-  EyeOff, 
+  Globe, 
   Map, 
   PanelLeftClose, 
   PanelLeftOpen 
@@ -18,7 +19,6 @@ interface HeaderProps {
   currentView: ViewType;
   onViewChange: (view: ViewType) => void;
   onOpenHelp: () => void;
-  onQuickExit: () => void;
   isSidebarOpen?: boolean;
   onToggleSidebar?: () => void;
 }
@@ -27,7 +27,6 @@ export const Header: React.FC<HeaderProps> = ({
   currentView,
   onViewChange,
   onOpenHelp,
-  onQuickExit,
   isSidebarOpen = true,
   onToggleSidebar
 }) => {
@@ -106,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
       </nav>
 
-      {/* Acciones de Seguridad y Salida Rápida */}
+      {/* Acciones de Seguridad y Botón Visítanos */}
       <div className="flex items-center gap-2">
         <div className="hidden lg:flex items-center gap-1.5 text-xs text-emerald-800 font-medium bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full shadow-xs">
           <Lock className="w-3.5 h-3.5 text-emerald-600" />
@@ -121,14 +120,15 @@ export const Header: React.FC<HeaderProps> = ({
           <span className="hidden sm:inline">Canales</span> PNP
         </button>
 
-        <button
-          onClick={onQuickExit}
-          className="text-xs bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 px-2.5 sm:px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition-colors font-semibold shadow-xs"
-          title="Oculta la pantalla de inmediato"
+        {/* Botón Visítanos hacia la Landing Page */}
+        <Link
+          href="/landing"
+          className="text-xs bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 px-3 py-1.5 rounded-xl flex items-center gap-1.5 transition-colors font-semibold shadow-xs"
+          title="Conoce más sobre VIGIA"
         >
-          <EyeOff className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Salida Rápida</span>
-        </button>
+          <Globe className="w-3.5 h-3.5 text-blue-600" />
+          <span>Visítanos</span>
+        </Link>
       </div>
     </header>
   );
