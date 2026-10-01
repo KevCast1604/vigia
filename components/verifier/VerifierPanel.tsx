@@ -80,28 +80,45 @@ export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchVi
   return (
     <div className="space-y-4 flex flex-col flex-1 p-4 sm:p-5">
       {/* Cabecera del Verificador */}
-      <div className="flex items-center gap-2">
-        <button
-          onClick={onBack}
-          className="text-slate-400 hover:text-slate-800 p-1.5 rounded-lg border border-slate-200 transition-colors"
-          title="Volver al Radar"
-        >
-          <ArrowLeft className="w-4 h-4" />
-        </button>
-        <div>
-          <h2 className="text-base font-bold text-slate-900 leading-tight">
-            Verificador de Identificadores
-          </h2>
-          <p className="text-xs text-slate-500 font-medium">
-            Búsqueda protegida mediante HMAC-SHA256
-          </p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={onBack}
+            className="text-slate-400 hover:text-slate-800 p-1.5 rounded-lg border border-slate-200 transition-colors"
+            title="Volver al Radar"
+          >
+            <ArrowLeft className="w-4 h-4" />
+          </button>
+          <div>
+            <h2 className="text-base font-bold text-slate-900 leading-tight">
+              Verificador de Identificadores
+            </h2>
+            <p className="text-xs text-slate-500 font-medium">
+              Búsqueda ciega mediante hash SHA-256
+            </p>
+          </div>
         </div>
+
+        <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+          Ley N° 29733
+        </span>
+      </div>
+
+      {/* Nota Explicativa de Arquitectura Ética y Legal */}
+      <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 text-xs text-slate-600 space-y-1">
+        <div className="font-bold text-slate-800 flex items-center gap-1.5 text-[11px]">
+          <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+          <span>¿Cómo funciona el Escudo Ciego?</span>
+        </div>
+        <p className="text-[11px] text-slate-500 leading-relaxed">
+          VIGIA no almacena números en texto plano ni publica listas negras. Tu consulta se transforma en un hash SHA-256 en tu propio dispositivo para contrastar únicamente si coincide con evidencias previas subidas por comerciantes.
+        </p>
       </div>
 
       {/* Input de Búsqueda */}
       <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3 shadow-xs">
         <label htmlFor="verifier-input" className="text-xs font-bold text-slate-700 block">
-          Ingresa número celular, cuenta bancaria o CCI:
+          Ingresa número celular, cuenta bancaria o CCI a verificar:
         </label>
         <div className="relative">
           <input
@@ -129,20 +146,25 @@ export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchVi
           </button>
         </div>
 
-        {/* Ejemplos de prueba rápida */}
-        <div className="flex flex-wrap gap-2 pt-0.5">
-          <button
-            onClick={() => handleQuickTest('999123456')}
-            className="text-[11px] bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 px-2.5 py-1 rounded-md shadow-xs font-medium transition-colors"
-          >
-            Ejemplo con reportes
-          </button>
-          <button
-            onClick={() => handleQuickTest('988000111')}
-            className="text-[11px] bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 px-2.5 py-1 rounded-md shadow-xs font-medium transition-colors"
-          >
-            Ejemplo sin reportes
-          </button>
+        {/* Banco de Pruebas para Evaluadores / Sandbox */}
+        <div className="pt-1 border-t border-slate-200/80 space-y-1.5">
+          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
+            Banco de Pruebas (Evaluación Hackathon):
+          </span>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => handleQuickTest('999123456')}
+              className="text-[11px] bg-white border border-amber-300 text-amber-900 hover:bg-amber-50 px-2.5 py-1 rounded-md shadow-xs font-medium transition-colors flex items-center gap-1"
+            >
+              <span>[Demo]</span> Con reportes previos
+            </button>
+            <button
+              onClick={() => handleQuickTest('988000111')}
+              className="text-[11px] bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 px-2.5 py-1 rounded-md shadow-xs font-medium transition-colors flex items-center gap-1"
+            >
+              <span>[Demo]</span> Sin reportes (Limpio)
+            </button>
+          </div>
         </div>
       </div>
 
@@ -154,11 +176,11 @@ export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchVi
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-amber-800 uppercase tracking-wide flex items-center gap-1.5">
                   <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
-                  Patrón Comunitario Detectado
+                  Coincidencia Comunitaria Detectada
                 </span>
                 <span className="text-[10px] font-mono text-amber-800 bg-amber-100 px-2 py-0.5 rounded-md border border-amber-200 flex items-center gap-1">
                   <Key className="w-3 h-3" />
-                  HMAC: {result.hmac}
+                  SHA-256: {result.hmac}
                 </span>
               </div>
 
@@ -172,7 +194,7 @@ export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchVi
                     Reportes asociados:
                   </div>
                   <div className="font-bold text-slate-900 text-sm">
-                    {result.associatedReportsCount} independientes
+                    {result.associatedReportsCount} comerciante(s)
                   </div>
                 </div>
                 <div className="bg-white p-2.5 rounded-lg border border-slate-200 shadow-xs">
@@ -195,32 +217,38 @@ export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchVi
                   <span>hace {result.lastReportDaysAgo} días ({result.lastReportDistrict})</span>
                 </div>
               </div>
+
+              <div className="text-[10px] text-amber-900 bg-white/80 p-2.5 rounded-lg border border-amber-200 leading-relaxed font-medium">
+                <strong>Aviso preventivo:</strong> VIGIA no califica la titularidad jurídica del número (frecuentemente los delincuentes usan chips clonados o cuentas de terceros). Ante exigencias de dinero, no deposites y comunícate con la <strong>Central 111 de la PNP</strong>.
+              </div>
             </div>
           ) : (
-            <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-2 text-center shadow-xs">
-              <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-1 border border-emerald-200">
+            <div className="bg-white border border-slate-200 p-4 rounded-xl space-y-2.5 text-center shadow-xs">
+              <div className="w-10 h-10 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-200">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <div className="text-sm font-bold text-slate-900">
-                Sin Reportes Comunitarios Previos
+                Sin Coincidencias en la Red Comunitaria
               </div>
-              <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                Este identificador no figura en la base comunitaria actual. Si recibiste un mensaje intimidatorio de este contacto, puedes registrarlo anónimamente.
+              <p className="text-xs text-slate-500 leading-relaxed font-medium max-w-sm mx-auto">
+                Este identificador no figura actualmente en la bóveda comunitaria. Recuerda que la ausencia de reportes previos no garantiza que una comunicación sea legítima.
               </p>
-              <button
-                onClick={() => onSwitchView('report')}
-                className="mt-2 text-xs text-blue-700 font-bold hover:underline"
-              >
-                Crear reporte anónimo →
-              </button>
+              <div className="pt-1 flex flex-col sm:flex-row items-center justify-center gap-2">
+                <button
+                  onClick={() => onSwitchView('report')}
+                  className="w-full sm:w-auto bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold px-3 py-1.5 rounded-lg text-xs transition-colors border border-blue-200"
+                >
+                  + Registrar reporte preventivo
+                </button>
+              </div>
             </div>
           )}
         </div>
       )}
 
-      {/* Aviso Ético y Legal */}
+      {/* Aviso Ético y Cumplimiento Legal */}
       <div className="text-[11px] text-slate-600 bg-blue-50/70 p-3 rounded-xl border border-blue-200 leading-relaxed font-medium mt-auto">
-        <strong className="text-blue-900">Aviso de Neutralidad:</strong> Los resultados reflejan reportes de usuarios y no constituyen una determinación legal de culpabilidad penal ni acusación comprobada.
+        <strong className="text-blue-900">Cumplimiento Legal (Ley N° 29733):</strong> Las consultas son anónimas y no se almacenan. VIGIA no publica listas negras, no expone datos personales en claro ni declara culpabilidad penal. Es un mecanismo de contraste matemático preventivo.
       </div>
     </div>
   );

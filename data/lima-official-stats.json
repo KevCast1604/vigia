@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-10-01T04:37:57.113Z",
+  "generatedAt": "2026-10-01T05:07:17.002Z",
   "totalDistricts": 43,
   "metroStats": {
     "key": "lima-metro",
     "name": "Lima Metropolitana",
     "ubigeo": "150100",
     "officialComplaints": 45313,
-    "communityPatterns": 324,
+    "communityPatterns": 0,
     "sectorName": "Todos los 43 distritos monitoreados (Consolidado Oficial)",
     "coordinates": [
       -12.0464,
@@ -58,7 +58,7 @@
       "name": "Lima Cercado",
       "ubigeo": "150101",
       "officialComplaints": 5543,
-      "communityPatterns": 40,
+      "communityPatterns": 0,
       "sectorName": "Mesa Redonda / Mercado Central / Av. Abancay",
       "coordinates": [
         -12.0464,
@@ -118,7 +118,7 @@
       "name": "Ancón",
       "ubigeo": "150102",
       "officialComplaints": 313,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Bahía de Ancón / San Francisco / Variante",
       "coordinates": [
         -11.7731,
@@ -178,7 +178,7 @@
       "name": "Ate Vitarte",
       "ubigeo": "150103",
       "officialComplaints": 2480,
-      "communityPatterns": 18,
+      "communityPatterns": 0,
       "sectorName": "Huaycán / Carretera Central / Ceres",
       "coordinates": [
         -12.0253,
@@ -238,7 +238,7 @@
       "name": "Barranco",
       "ubigeo": "150104",
       "officialComplaints": 240,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Plaza de Armas / Malecón Paul Harris / El Sol",
       "coordinates": [
         -12.1489,
@@ -298,7 +298,7 @@
       "name": "Breña",
       "ubigeo": "150105",
       "officialComplaints": 389,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Av. Brasil / Av. Arica / Chacra Colorada",
       "coordinates": [
         -12.0592,
@@ -358,7 +358,7 @@
       "name": "Carabayllo",
       "ubigeo": "150106",
       "officialComplaints": 1571,
-      "communityPatterns": 11,
+      "communityPatterns": 0,
       "sectorName": "Tungasuca / El Progreso / San Pedro",
       "coordinates": [
         -11.9022,
@@ -418,7 +418,7 @@
       "name": "Chaclacayo",
       "ubigeo": "150107",
       "officialComplaints": 254,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Ñaña / Morón / Carretera Central",
       "coordinates": [
         -11.9739,
@@ -478,7 +478,7 @@
       "name": "Chorrillos",
       "ubigeo": "150108",
       "officialComplaints": 1665,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Huertos de Villa / Matellini / Túpac Amaru",
       "coordinates": [
         -12.1819,
@@ -538,7 +538,7 @@
       "name": "Cieneguilla",
       "ubigeo": "150109",
       "officialComplaints": 193,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Valle de Lurín / Tambo Viejo / Campiña",
       "coordinates": [
         -12.0911,
@@ -598,7 +598,7 @@
       "name": "Comas",
       "ubigeo": "150110",
       "officialComplaints": 2876,
-      "communityPatterns": 21,
+      "communityPatterns": 0,
       "sectorName": "Av. Túpac Amaru / Universitaria / Collique",
       "coordinates": [
         -11.9328,
@@ -658,7 +658,7 @@
       "name": "El Agustino",
       "ubigeo": "150111",
       "officialComplaints": 598,
-      "communityPatterns": 4,
+      "communityPatterns": 0,
       "sectorName": "Riva Agüero / Cerro San Pedro / El Ángel",
       "coordinates": [
         -12.0489,
@@ -718,7 +718,7 @@
       "name": "Independencia",
       "ubigeo": "150112",
       "officialComplaints": 1234,
-      "communityPatterns": 9,
+      "communityPatterns": 0,
       "sectorName": "Tahuantinsuyo / Túpac Amaru / MegaPlaza",
       "coordinates": [
         -11.9931,
@@ -778,7 +778,7 @@
       "name": "Jesús María",
       "ubigeo": "150113",
       "officialComplaints": 480,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Av. Salaverry / San Felipe / Real Plaza",
       "coordinates": [
         -12.0747,
@@ -838,7 +838,7 @@
       "name": "La Molina",
       "ubigeo": "150114",
       "officialComplaints": 579,
-      "communityPatterns": 4,
+      "communityPatterns": 0,
       "sectorName": "Raúl Ferrero / Javier Prado Este / La Planicie",
       "coordinates": [
         -12.0769,
@@ -898,7 +898,7 @@
       "name": "La Victoria",
       "ubigeo": "150115",
       "officialComplaints": 1226,
-      "communityPatterns": 9,
+      "communityPatterns": 0,
       "sectorName": "Emporio Comercial Gamarra / 28 de Julio / Manzanilla",
       "coordinates": [
         -12.0664,
@@ -958,7 +958,7 @@
       "name": "Lince",
       "ubigeo": "150116",
       "officialComplaints": 265,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Av. Arenales / Risso / Mariscal Miller",
       "coordinates": [
         -12.0833,
@@ -1018,7 +1018,7 @@
       "name": "Los Olivos",
       "ubigeo": "150117",
       "officialComplaints": 2154,
-      "communityPatterns": 15,
+      "communityPatterns": 0,
       "sectorName": "Antúnez de Mayolo / Izaguirre / Pro / Huandoy",
       "coordinates": [
         -11.9686,
@@ -1078,7 +1078,7 @@
       "name": "Lurigancho - Chosica",
       "ubigeo": "150118",
       "officialComplaints": 932,
-      "communityPatterns": 7,
+      "communityPatterns": 0,
       "sectorName": "Chosica Central / Carretera Central / Moyopampa",
       "coordinates": [
         -11.9367,
@@ -1138,7 +1138,7 @@
       "name": "Lurín",
       "ubigeo": "150119",
       "officialComplaints": 644,
-      "communityPatterns": 5,
+      "communityPatterns": 0,
       "sectorName": "Antigua Panamericana Sur / Mamacona / Km 40",
       "coordinates": [
         -12.2744,
@@ -1198,7 +1198,7 @@
       "name": "Magdalena del Mar",
       "ubigeo": "150120",
       "officialComplaints": 283,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Plaza Túpac Amaru / Sucre / Javier Prado Oeste",
       "coordinates": [
         -12.0917,
@@ -1258,7 +1258,7 @@
       "name": "Pueblo Libre",
       "ubigeo": "150121",
       "officialComplaints": 240,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Plaza Bolívar / Av. Sucre / La Marina",
       "coordinates": [
         -12.0736,
@@ -1318,7 +1318,7 @@
       "name": "Miraflores",
       "ubigeo": "150122",
       "officialComplaints": 496,
-      "communityPatterns": 4,
+      "communityPatterns": 0,
       "sectorName": "Óvalo de Miraflores / Larcomar / Av. Benavides",
       "coordinates": [
         -12.1217,
@@ -1378,7 +1378,7 @@
       "name": "Pachacámac",
       "ubigeo": "150123",
       "officialComplaints": 659,
-      "communityPatterns": 5,
+      "communityPatterns": 0,
       "sectorName": "Valle de Pachacámac / Paul Poblet / Manchay",
       "coordinates": [
         -12.2294,
@@ -1438,7 +1438,7 @@
       "name": "Pucusana",
       "ubigeo": "150124",
       "officialComplaints": 78,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Puerto Pucusana / Gruta del Pescador / Boquerón",
       "coordinates": [
         -12.4822,
@@ -1498,7 +1498,7 @@
       "name": "Puente Piedra",
       "ubigeo": "150125",
       "officialComplaints": 1663,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Óvalo de Puente Piedra / Zapallal / Panamericana Norte",
       "coordinates": [
         -11.8661,
@@ -1558,7 +1558,7 @@
       "name": "Punta Hermosa",
       "ubigeo": "150126",
       "officialComplaints": 79,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "El Silencio / Señoritas / Balneario",
       "coordinates": [
         -12.3361,
@@ -1618,7 +1618,7 @@
       "name": "Punta Negra",
       "ubigeo": "150127",
       "officialComplaints": 40,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "La Pocita / Guaneras / Balneario",
       "coordinates": [
         -12.3667,
@@ -1678,7 +1678,7 @@
       "name": "Rímac",
       "ubigeo": "150128",
       "officialComplaints": 1102,
-      "communityPatterns": 8,
+      "communityPatterns": 0,
       "sectorName": "Jr. Trujillo / Caquetá / Prolongación Tacna / Piedra Liza",
       "coordinates": [
         -12.0322,
@@ -1738,7 +1738,7 @@
       "name": "San Bartolo",
       "ubigeo": "150129",
       "officialComplaints": 67,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "San José / Malecón Sur / Av. San Martín",
       "coordinates": [
         -12.3889,
@@ -1798,7 +1798,7 @@
       "name": "San Borja",
       "ubigeo": "150130",
       "officialComplaints": 442,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Av. Aviación / San Borja Sur / Javier Prado",
       "coordinates": [
         -12.0864,
@@ -1858,7 +1858,7 @@
       "name": "San Isidro",
       "ubigeo": "150131",
       "officialComplaints": 286,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Centro Financiero / Canaval y Moreyra / El Olivar",
       "coordinates": [
         -12.0975,
@@ -1918,7 +1918,7 @@
       "name": "San Juan de Lurigancho",
       "ubigeo": "150132",
       "officialComplaints": 5612,
-      "communityPatterns": 40,
+      "communityPatterns": 0,
       "sectorName": "Canto Grande / Bayóvar / Huáscar / Zárate / Las Flores",
       "coordinates": [
         -11.9754,
@@ -1978,7 +1978,7 @@
       "name": "San Juan de Miraflores",
       "ubigeo": "150133",
       "officialComplaints": 1629,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Ciudad de Dios / Pista Nueva / Av. San Juan",
       "coordinates": [
         -12.1611,
@@ -2038,7 +2038,7 @@
       "name": "San Luis",
       "ubigeo": "150134",
       "officialComplaints": 284,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Av. San Luis / Circunvalación / Yerbateros",
       "coordinates": [
         -12.0758,
@@ -2098,7 +2098,7 @@
       "name": "San Martín de Porres",
       "ubigeo": "150135",
       "officialComplaints": 2180,
-      "communityPatterns": 16,
+      "communityPatterns": 0,
       "sectorName": "Fiori / Av. Habich / Zarumilla / Av. Perú",
       "coordinates": [
         -11.9961,
@@ -2158,7 +2158,7 @@
       "name": "San Miguel",
       "ubigeo": "150136",
       "officialComplaints": 379,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Plaza San Miguel / Av. La Marina / Elmer Faucett",
       "coordinates": [
         -12.0767,
@@ -2218,7 +2218,7 @@
       "name": "Santa Anita",
       "ubigeo": "150137",
       "officialComplaints": 686,
-      "communityPatterns": 5,
+      "communityPatterns": 0,
       "sectorName": "Mercado Mayorista / Los Ruiseñores / Huarochirí",
       "coordinates": [
         -12.0469,
@@ -2278,7 +2278,7 @@
       "name": "Santa María del Mar",
       "ubigeo": "150138",
       "officialComplaints": 10,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Balneario Santa María / Playa Grande",
       "coordinates": [
         -12.4042,
@@ -2337,7 +2337,7 @@
       "name": "Santa Rosa",
       "ubigeo": "150139",
       "officialComplaints": 98,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Playa Chica / Autopista Panamericana Norte Km 43",
       "coordinates": [
         -11.8028,
@@ -2397,7 +2397,7 @@
       "name": "Santiago de Surco",
       "ubigeo": "150140",
       "officialComplaints": 1243,
-      "communityPatterns": 9,
+      "communityPatterns": 0,
       "sectorName": "Monterrico / La Bolichera / Chacarilla / Benavides",
       "coordinates": [
         -12.1408,
@@ -2457,7 +2457,7 @@
       "name": "Surquillo",
       "ubigeo": "150141",
       "officialComplaints": 281,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Av. Angamos / Tomás Marsano / Mercado N° 1",
       "coordinates": [
         -12.1122,
@@ -2517,7 +2517,7 @@
       "name": "Villa El Salvador",
       "ubigeo": "150142",
       "officialComplaints": 2188,
-      "communityPatterns": 16,
+      "communityPatterns": 0,
       "sectorName": "Parque Industrial / Av. Central / Pastor Sevilla / Álamos",
       "coordinates": [
         -12.2104,
@@ -2577,7 +2577,7 @@
       "name": "Villa María del Triunfo",
       "ubigeo": "150143",
       "officialComplaints": 1652,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Curva de Nueva Esperanza / José Carlos Mariátegui / Tablada",
       "coordinates": [
         -12.1583,
@@ -2639,7 +2639,7 @@
       "name": "San Juan de Lurigancho",
       "ubigeo": "150132",
       "officialComplaints": 5612,
-      "communityPatterns": 40,
+      "communityPatterns": 0,
       "sectorName": "Canto Grande / Bayóvar / Huáscar / Zárate / Las Flores",
       "coordinates": [
         -11.9754,
@@ -2699,7 +2699,7 @@
       "name": "Lima Cercado",
       "ubigeo": "150101",
       "officialComplaints": 5543,
-      "communityPatterns": 40,
+      "communityPatterns": 0,
       "sectorName": "Mesa Redonda / Mercado Central / Av. Abancay",
       "coordinates": [
         -12.0464,
@@ -2759,7 +2759,7 @@
       "name": "Comas",
       "ubigeo": "150110",
       "officialComplaints": 2876,
-      "communityPatterns": 21,
+      "communityPatterns": 0,
       "sectorName": "Av. Túpac Amaru / Universitaria / Collique",
       "coordinates": [
         -11.9328,
@@ -2819,7 +2819,7 @@
       "name": "Ate Vitarte",
       "ubigeo": "150103",
       "officialComplaints": 2480,
-      "communityPatterns": 18,
+      "communityPatterns": 0,
       "sectorName": "Huaycán / Carretera Central / Ceres",
       "coordinates": [
         -12.0253,
@@ -2879,7 +2879,7 @@
       "name": "Villa El Salvador",
       "ubigeo": "150142",
       "officialComplaints": 2188,
-      "communityPatterns": 16,
+      "communityPatterns": 0,
       "sectorName": "Parque Industrial / Av. Central / Pastor Sevilla / Álamos",
       "coordinates": [
         -12.2104,
@@ -2939,7 +2939,7 @@
       "name": "San Martín de Porres",
       "ubigeo": "150135",
       "officialComplaints": 2180,
-      "communityPatterns": 16,
+      "communityPatterns": 0,
       "sectorName": "Fiori / Av. Habich / Zarumilla / Av. Perú",
       "coordinates": [
         -11.9961,
@@ -2999,7 +2999,7 @@
       "name": "Los Olivos",
       "ubigeo": "150117",
       "officialComplaints": 2154,
-      "communityPatterns": 15,
+      "communityPatterns": 0,
       "sectorName": "Antúnez de Mayolo / Izaguirre / Pro / Huandoy",
       "coordinates": [
         -11.9686,
@@ -3059,7 +3059,7 @@
       "name": "Chorrillos",
       "ubigeo": "150108",
       "officialComplaints": 1665,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Huertos de Villa / Matellini / Túpac Amaru",
       "coordinates": [
         -12.1819,
@@ -3119,7 +3119,7 @@
       "name": "Puente Piedra",
       "ubigeo": "150125",
       "officialComplaints": 1663,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Óvalo de Puente Piedra / Zapallal / Panamericana Norte",
       "coordinates": [
         -11.8661,
@@ -3179,7 +3179,7 @@
       "name": "Villa María del Triunfo",
       "ubigeo": "150143",
       "officialComplaints": 1652,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Curva de Nueva Esperanza / José Carlos Mariátegui / Tablada",
       "coordinates": [
         -12.1583,
@@ -3239,7 +3239,7 @@
       "name": "San Juan de Miraflores",
       "ubigeo": "150133",
       "officialComplaints": 1629,
-      "communityPatterns": 12,
+      "communityPatterns": 0,
       "sectorName": "Ciudad de Dios / Pista Nueva / Av. San Juan",
       "coordinates": [
         -12.1611,
@@ -3299,7 +3299,7 @@
       "name": "Carabayllo",
       "ubigeo": "150106",
       "officialComplaints": 1571,
-      "communityPatterns": 11,
+      "communityPatterns": 0,
       "sectorName": "Tungasuca / El Progreso / San Pedro",
       "coordinates": [
         -11.9022,
@@ -3359,7 +3359,7 @@
       "name": "Santiago de Surco",
       "ubigeo": "150140",
       "officialComplaints": 1243,
-      "communityPatterns": 9,
+      "communityPatterns": 0,
       "sectorName": "Monterrico / La Bolichera / Chacarilla / Benavides",
       "coordinates": [
         -12.1408,
@@ -3419,7 +3419,7 @@
       "name": "Independencia",
       "ubigeo": "150112",
       "officialComplaints": 1234,
-      "communityPatterns": 9,
+      "communityPatterns": 0,
       "sectorName": "Tahuantinsuyo / Túpac Amaru / MegaPlaza",
       "coordinates": [
         -11.9931,
@@ -3479,7 +3479,7 @@
       "name": "La Victoria",
       "ubigeo": "150115",
       "officialComplaints": 1226,
-      "communityPatterns": 9,
+      "communityPatterns": 0,
       "sectorName": "Emporio Comercial Gamarra / 28 de Julio / Manzanilla",
       "coordinates": [
         -12.0664,
@@ -3539,7 +3539,7 @@
       "name": "Rímac",
       "ubigeo": "150128",
       "officialComplaints": 1102,
-      "communityPatterns": 8,
+      "communityPatterns": 0,
       "sectorName": "Jr. Trujillo / Caquetá / Prolongación Tacna / Piedra Liza",
       "coordinates": [
         -12.0322,
@@ -3599,7 +3599,7 @@
       "name": "Lurigancho - Chosica",
       "ubigeo": "150118",
       "officialComplaints": 932,
-      "communityPatterns": 7,
+      "communityPatterns": 0,
       "sectorName": "Chosica Central / Carretera Central / Moyopampa",
       "coordinates": [
         -11.9367,
@@ -3659,7 +3659,7 @@
       "name": "Santa Anita",
       "ubigeo": "150137",
       "officialComplaints": 686,
-      "communityPatterns": 5,
+      "communityPatterns": 0,
       "sectorName": "Mercado Mayorista / Los Ruiseñores / Huarochirí",
       "coordinates": [
         -12.0469,
@@ -3719,7 +3719,7 @@
       "name": "Pachacámac",
       "ubigeo": "150123",
       "officialComplaints": 659,
-      "communityPatterns": 5,
+      "communityPatterns": 0,
       "sectorName": "Valle de Pachacámac / Paul Poblet / Manchay",
       "coordinates": [
         -12.2294,
@@ -3779,7 +3779,7 @@
       "name": "Lurín",
       "ubigeo": "150119",
       "officialComplaints": 644,
-      "communityPatterns": 5,
+      "communityPatterns": 0,
       "sectorName": "Antigua Panamericana Sur / Mamacona / Km 40",
       "coordinates": [
         -12.2744,
@@ -3839,7 +3839,7 @@
       "name": "El Agustino",
       "ubigeo": "150111",
       "officialComplaints": 598,
-      "communityPatterns": 4,
+      "communityPatterns": 0,
       "sectorName": "Riva Agüero / Cerro San Pedro / El Ángel",
       "coordinates": [
         -12.0489,
@@ -3899,7 +3899,7 @@
       "name": "La Molina",
       "ubigeo": "150114",
       "officialComplaints": 579,
-      "communityPatterns": 4,
+      "communityPatterns": 0,
       "sectorName": "Raúl Ferrero / Javier Prado Este / La Planicie",
       "coordinates": [
         -12.0769,
@@ -3959,7 +3959,7 @@
       "name": "Miraflores",
       "ubigeo": "150122",
       "officialComplaints": 496,
-      "communityPatterns": 4,
+      "communityPatterns": 0,
       "sectorName": "Óvalo de Miraflores / Larcomar / Av. Benavides",
       "coordinates": [
         -12.1217,
@@ -4019,7 +4019,7 @@
       "name": "Jesús María",
       "ubigeo": "150113",
       "officialComplaints": 480,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Av. Salaverry / San Felipe / Real Plaza",
       "coordinates": [
         -12.0747,
@@ -4079,7 +4079,7 @@
       "name": "San Borja",
       "ubigeo": "150130",
       "officialComplaints": 442,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Av. Aviación / San Borja Sur / Javier Prado",
       "coordinates": [
         -12.0864,
@@ -4139,7 +4139,7 @@
       "name": "Breña",
       "ubigeo": "150105",
       "officialComplaints": 389,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Av. Brasil / Av. Arica / Chacra Colorada",
       "coordinates": [
         -12.0592,
@@ -4199,7 +4199,7 @@
       "name": "San Miguel",
       "ubigeo": "150136",
       "officialComplaints": 379,
-      "communityPatterns": 3,
+      "communityPatterns": 0,
       "sectorName": "Plaza San Miguel / Av. La Marina / Elmer Faucett",
       "coordinates": [
         -12.0767,
@@ -4259,7 +4259,7 @@
       "name": "Ancón",
       "ubigeo": "150102",
       "officialComplaints": 313,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Bahía de Ancón / San Francisco / Variante",
       "coordinates": [
         -11.7731,
@@ -4319,7 +4319,7 @@
       "name": "San Isidro",
       "ubigeo": "150131",
       "officialComplaints": 286,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Centro Financiero / Canaval y Moreyra / El Olivar",
       "coordinates": [
         -12.0975,
@@ -4379,7 +4379,7 @@
       "name": "San Luis",
       "ubigeo": "150134",
       "officialComplaints": 284,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Av. San Luis / Circunvalación / Yerbateros",
       "coordinates": [
         -12.0758,
@@ -4439,7 +4439,7 @@
       "name": "Magdalena del Mar",
       "ubigeo": "150120",
       "officialComplaints": 283,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Plaza Túpac Amaru / Sucre / Javier Prado Oeste",
       "coordinates": [
         -12.0917,
@@ -4499,7 +4499,7 @@
       "name": "Surquillo",
       "ubigeo": "150141",
       "officialComplaints": 281,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Av. Angamos / Tomás Marsano / Mercado N° 1",
       "coordinates": [
         -12.1122,
@@ -4559,7 +4559,7 @@
       "name": "Lince",
       "ubigeo": "150116",
       "officialComplaints": 265,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Av. Arenales / Risso / Mariscal Miller",
       "coordinates": [
         -12.0833,
@@ -4619,7 +4619,7 @@
       "name": "Chaclacayo",
       "ubigeo": "150107",
       "officialComplaints": 254,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Ñaña / Morón / Carretera Central",
       "coordinates": [
         -11.9739,
@@ -4679,7 +4679,7 @@
       "name": "Barranco",
       "ubigeo": "150104",
       "officialComplaints": 240,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Plaza de Armas / Malecón Paul Harris / El Sol",
       "coordinates": [
         -12.1489,
@@ -4739,7 +4739,7 @@
       "name": "Pueblo Libre",
       "ubigeo": "150121",
       "officialComplaints": 240,
-      "communityPatterns": 2,
+      "communityPatterns": 0,
       "sectorName": "Plaza Bolívar / Av. Sucre / La Marina",
       "coordinates": [
         -12.0736,
@@ -4799,7 +4799,7 @@
       "name": "Cieneguilla",
       "ubigeo": "150109",
       "officialComplaints": 193,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Valle de Lurín / Tambo Viejo / Campiña",
       "coordinates": [
         -12.0911,
@@ -4859,7 +4859,7 @@
       "name": "Santa Rosa",
       "ubigeo": "150139",
       "officialComplaints": 98,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Playa Chica / Autopista Panamericana Norte Km 43",
       "coordinates": [
         -11.8028,
@@ -4919,7 +4919,7 @@
       "name": "Punta Hermosa",
       "ubigeo": "150126",
       "officialComplaints": 79,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "El Silencio / Señoritas / Balneario",
       "coordinates": [
         -12.3361,
@@ -4979,7 +4979,7 @@
       "name": "Pucusana",
       "ubigeo": "150124",
       "officialComplaints": 78,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Puerto Pucusana / Gruta del Pescador / Boquerón",
       "coordinates": [
         -12.4822,
@@ -5039,7 +5039,7 @@
       "name": "San Bartolo",
       "ubigeo": "150129",
       "officialComplaints": 67,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "San José / Malecón Sur / Av. San Martín",
       "coordinates": [
         -12.3889,
@@ -5099,7 +5099,7 @@
       "name": "Punta Negra",
       "ubigeo": "150127",
       "officialComplaints": 40,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "La Pocita / Guaneras / Balneario",
       "coordinates": [
         -12.3667,
@@ -5159,7 +5159,7 @@
       "name": "Santa María del Mar",
       "ubigeo": "150138",
       "officialComplaints": 10,
-      "communityPatterns": 1,
+      "communityPatterns": 0,
       "sectorName": "Balneario Santa María / Playa Grande",
       "coordinates": [
         -12.4042,

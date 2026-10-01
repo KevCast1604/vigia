@@ -203,8 +203,8 @@ async function main() {
     else if (stat.officialComplaints > 1000) riskLevel = 'high';
     else if (stat.officialComplaints > 500) riskLevel = 'medium';
 
-    // Approximate community patterns (proportional to complaints for MVP display)
-    const communityPatterns = Math.max(1, Math.round(stat.officialComplaints / 140));
+    // Baseline comunitario honesto: inicia en 0 hasta que los comerciantes reporten
+    const communityPatterns = 0;
 
     const item = {
       key: stat.key,
@@ -242,7 +242,7 @@ async function main() {
     name: 'Lima Metropolitana',
     ubigeo: '150100',
     officialComplaints: totalMetroComplaints,
-    communityPatterns: Math.round(totalMetroComplaints / 140),
+    communityPatterns: 0,
     sectorName: 'Todos los 43 distritos monitoreados (Consolidado Oficial)',
     coordinates: [-12.0464, -77.03],
     riskLevel: 'very-high',

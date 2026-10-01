@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ShieldCheck, Users, TrendingUp, Search, PlusCircle, ChevronDown, Check, X, Layers } from 'lucide-react';
 import { DistrictKey, DistrictStats, ViewType } from '@/lib/types';
 import { LIMA_DISTRICTS, METRO_STATS } from '@/lib/districts-data';
+import { supabase } from '@/lib/supabase/client';
 
 interface RadarPanelProps {
   selectedDistrict: DistrictKey | null;
@@ -26,7 +27,35 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
   const currentData: DistrictStats = selectedDistrict ? (LIMA_DISTRICTS[selectedDistrict] || METRO_STATS) : METRO_STATS;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [communityCount, setCommunityCount] = useState<number>(0);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Consulta en vivo del conteo real de reportes comunitarios en Supabase
+  useEffect(() => {
+    let isMounted = true;
+    const fetchCommunityCount = async () => {
+      try {
+        let query = supabase.from('community_reports').select('*', { count: 'exact', head: true });
+        if (selectedDistrict) {
+          const distInfo = LIMA_DISTRICTS[selectedDistrict];
+          if (distInfo) {
+            query = query.eq('ubigeo', distInfo.ubigeo);
+          }
+        }
+        const { count, error } = await query;
+        if (!error && count !== null && isMounted) {
+          setCommunityCount(count);
+        }
+      } catch (err) {
+        console.error('Error consultando reportes comunitarios:', err);
+      }
+    };
+
+    fetchCommunityCount();
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedDistrict]);
 
   // Cerrar el dropdown al hacer clic fuera o presionar la tecla Escape
   useEffect(() => {
@@ -308,17 +337,37 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
 
         <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500 mb-1">
-              <Users className="w-3.5 h-3.5 text-amber-600" />
-              <span>Patrones VIGIA</span>
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
+                <Users className="w-3.5 h-3.5 text-amber-600" />
+                <span>Patrones VIGIA</span>
+              </div>
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">
+                Comunidad
+              </span>
             </div>
             <div className="text-2xl font-black text-amber-600">
-              {currentData.communityPatterns}
+              {communityCount}
             </div>
           </div>
-          <p className="text-[10px] text-slate-400 mt-2 font-medium">
-            Alertas comunitarias
-          </p>
+          {communityCount === 0 ? (
+            <div className="mt-2 space-y-0.5">
+              <p className="text-[10px] text-slate-400 font-medium">
+                0 alertas activas en zona
+              </p>
+              <button
+                type="button"
+                onClick={() => onSwitchView('report')}
+                className="text-[10px] font-bold text-blue-700 hover:text-blue-800 hover:underline flex items-center gap-1"
+              >
+                <span>+ Activar escudo vecinal</span>
+              </button>
+            </div>
+          ) : (
+            <p className="text-[10px] text-emerald-700 font-bold mt-2">
+              {communityCount} {communityCount === 1 ? 'alerta comunitaria activa' : 'alertas comunitarias activas'}
+            </p>
+          )}
         </div>
       </div>
 

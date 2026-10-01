@@ -214,10 +214,12 @@ export const MapView: React.FC<MapViewProps> = ({
             <div className="bg-slate-50 border border-slate-100 rounded-xl p-2 text-center">
               <span className="text-[10px] font-bold text-slate-400 block">Denuncias PNP</span>
               <span className="text-sm font-black text-slate-900">{currentDistrict.officialComplaints.toLocaleString()}</span>
+              <span className="text-[9px] text-slate-400 block font-medium">Oficiales</span>
             </div>
             <div className="bg-amber-50/70 border border-amber-100 rounded-xl p-2 text-center">
               <span className="text-[10px] font-bold text-amber-700 block">Alertas VIGIA</span>
               <span className="text-sm font-black text-amber-700">{currentDistrict.communityPatterns}</span>
+              <span className="text-[9px] text-amber-600 block font-medium">Comunitarias</span>
             </div>
           </div>
 
