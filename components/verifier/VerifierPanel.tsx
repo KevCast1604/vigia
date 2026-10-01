@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ArrowLeft, Search, ShieldCheck, AlertTriangle, Key } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, AlertTriangle, Key } from 'lucide-react';
 import { VerificationResultData, ViewType } from '@/lib/types';
 
 interface VerifierPanelProps {

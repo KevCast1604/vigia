@@ -12,7 +12,7 @@ import {
   Smartphone,
   Lock
 } from 'lucide-react';
-import { IncidentCategory, ViewType } from '@/lib/types';
+import { IncidentCategory } from '@/lib/types';
 
 interface ReportWizardPanelProps {
   onBack: () => void;
@@ -109,7 +109,7 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
                   <Coins className="w-4 h-4" />
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900">Préstamo "Gota a Gota"</div>
+                  <div className="text-xs font-bold text-slate-900">Préstamo &ldquo;Gota a Gota&rdquo;</div>
                   <div className="text-[11px] text-slate-500">Intereses abusivos diarios o cobro intimidatorio</div>
                 </div>
               </div>
@@ -252,7 +252,7 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
                     </div>
                   </div>
                   <div className="text-[10px] text-slate-500 italic bg-white/70 p-2 rounded border border-slate-200">
-                    "La IA solo extrae datos observables sin calificar la veracidad legal."
+                    &ldquo;La IA solo extrae datos observables sin calificar la veracidad legal.&rdquo;
                   </div>
                 </div>
               )}

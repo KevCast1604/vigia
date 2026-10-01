@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Shield, PhoneCall, X, Search } from 'lucide-react';
 
 interface ModalsProps {
@@ -16,12 +16,29 @@ export const Modals: React.FC<ModalsProps> = ({
   isQuickExitOpen,
   onCloseQuickExit
 }) => {
+  // Manejo de la tecla Escape para cerrar cualquier modal abierto
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (isHelpOpen) onCloseHelp();
+        if (isQuickExitOpen) onCloseQuickExit();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isHelpOpen, isQuickExitOpen, onCloseHelp, onCloseQuickExit]);
+
   return (
     <>
-      {/* Modal Informativo Canales Oficiales PNP */}
+      {/* Modal Informativo Canales Oficiales PNP (z-[9999] para estar siempre por encima de Leaflet) */}
       {isHelpOpen && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white border border-slate-200 max-w-sm w-full rounded-2xl p-5 space-y-4 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+        <div
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onCloseHelp();
+          }}
+          className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-[9999] flex items-center justify-center p-4 transition-opacity duration-200"
+        >
+          <div className="bg-white border border-slate-200 max-w-sm w-full rounded-2xl p-5 space-y-4 shadow-2xl relative">
             <div className="flex justify-between items-center">
               <h3 className="font-bold text-slate-900 text-base flex items-center gap-2">
                 <Shield className="w-5 h-5 text-blue-600" />
@@ -29,9 +46,10 @@ export const Modals: React.FC<ModalsProps> = ({
               </h3>
               <button
                 onClick={onCloseHelp}
-                className="text-slate-400 hover:text-slate-700 p-1 rounded-lg"
+                className="text-slate-400 hover:text-slate-700 p-1.5 rounded-lg border border-slate-200 transition-colors"
+                title="Cerrar modal"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
             
@@ -43,11 +61,11 @@ export const Modals: React.FC<ModalsProps> = ({
               <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center">
                 <div>
                   <div className="text-xs font-bold text-slate-900">Central PNP Extorsiones</div>
-                  <div className="text-[11px] text-slate-500">Atención especializada 24/7</div>
+                  <div className="text-[11px] text-slate-500 font-medium">Atención especializada 24/7</div>
                 </div>
                 <a
                   href="tel:111"
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs flex items-center gap-1"
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs flex items-center gap-1.5 transition-colors"
                 >
                   <PhoneCall className="w-3.5 h-3.5" />
                   <span>111</span>
@@ -57,11 +75,11 @@ export const Modals: React.FC<ModalsProps> = ({
               <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center">
                 <div>
                   <div className="text-xs font-bold text-slate-900">Emergencias Policía Nacional</div>
-                  <div className="text-[11px] text-slate-500">Respuesta rápida de patrullaje</div>
+                  <div className="text-[11px] text-slate-500 font-medium">Respuesta rápida de patrullaje</div>
                 </div>
                 <a
                   href="tel:105"
-                  className="bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs flex items-center gap-1"
+                  className="bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs flex items-center gap-1.5 transition-colors"
                 >
                   <PhoneCall className="w-3.5 h-3.5" />
                   <span>105</span>
@@ -71,17 +89,17 @@ export const Modals: React.FC<ModalsProps> = ({
 
             <button
               onClick={onCloseHelp}
-              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 py-2.5 rounded-xl text-xs font-semibold transition-colors"
+              className="w-full bg-slate-100 hover:bg-slate-200 text-slate-800 py-2.5 rounded-xl text-xs font-bold transition-colors"
             >
-              Cerrar
+              Entendido, volver a VIGIA
             </button>
           </div>
         </div>
       )}
 
-      {/* Pantalla Simulada de Salida Rápida (Quick Exit) */}
+      {/* Pantalla Simulada de Salida Rápida (Quick Exit con z-[9999]) */}
       {isQuickExitOpen && (
-        <div className="fixed inset-0 bg-white text-slate-900 z-50 p-6 flex flex-col justify-start items-center">
+        <div className="fixed inset-0 bg-white text-slate-900 z-[9999] p-6 flex flex-col justify-start items-center">
           <div className="w-full max-w-md pt-12">
             <div className="text-3xl font-bold tracking-tight text-blue-600 mb-6 text-center">
               Google
@@ -95,7 +113,7 @@ export const Modals: React.FC<ModalsProps> = ({
             <div className="mt-12 text-center">
               <button
                 onClick={onCloseQuickExit}
-                className="text-xs text-slate-400 hover:text-slate-600 underline"
+                className="text-xs text-slate-400 hover:text-slate-600 underline font-medium"
               >
                 (Restaurar VIGIA)
               </button>
