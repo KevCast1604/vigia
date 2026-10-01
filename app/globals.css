@@ -16,6 +16,7 @@
 html {
   font-family: var(--font-sans);
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body {

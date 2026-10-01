@@ -97,7 +97,7 @@ export default function HowToUse({ onOpenEmergencyModal }: HowToUseProps) {
   };
 
   return (
-    <section className="bg-white border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
+    <section id="como-funciona" className="scroll-mt-18 bg-white border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto space-y-10 lg:space-y-14">
         
         {/* Encabezado */}

@@ -1,16 +1,14 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import * as Dialog from '@radix-ui/react-dialog';
 import { 
   Shield, 
-  ShieldCheck, 
   PhoneCall, 
-  ArrowRight, 
   X
 } from 'lucide-react';
 
+import LandingNavbar from '@/components/landing/LandingNavbar';
 import Hero from '@/components/landing/Hero';
 import ImpactMetrics from '@/components/landing/ImpactMetrics';
 import AboutUs from '@/components/landing/AboutUs';
@@ -58,55 +56,8 @@ export default function LandingPage() {
         </div>
       </aside>
 
-      {/* 2. Navegacion Principal Institucional */}
-      <header className="bg-white/95 backdrop-blur border-b border-slate-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
-          {/* Logotipo VIGIA */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-600/20 group-hover:bg-blue-700 transition-colors">
-              <Shield className="w-6 h-6" />
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
-                  VIGIA
-                </span>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full">
-                  Lima y Callao
-                </span>
-              </div>
-              <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
-                Monitoreo Territorial de Extorsion e Inteligencia Preventiva
-              </p>
-            </div>
-          </Link>
-
-          {/* Acciones Rapidas del Navbar */}
-          <div className="flex items-center gap-2.5">
-            <div className="hidden md:flex items-center gap-1.5 text-xs text-slate-600 font-medium px-3 py-1.5 rounded-xl border border-slate-200 bg-slate-50">
-              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-              <span>Dataset Policial PNP (2018–2026)</span>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleOpenEmergency}
-              className="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-bold text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition-colors shadow-2xs"
-            >
-              <PhoneCall className="w-3.5 h-3.5 text-red-600 animate-pulse" />
-              <span className="hidden sm:inline">Canales</span> PNP
-            </button>
-
-            <Link
-              href="/"
-              className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md shadow-blue-500/20 flex items-center gap-1.5 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>Abrir Radar Territorial</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-        </div>
-      </header>
+      {/* 2. Navegacion Principal Institucional y Responsive */}
+      <LandingNavbar onOpenEmergencyModal={handleOpenEmergency} />
 
       {/* 3. Seccion Hero (Pantalla Completa en Desktop) */}
       <Hero onOpenEmergencyModal={handleOpenEmergency} />

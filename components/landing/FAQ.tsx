@@ -115,7 +115,7 @@ export default function FAQ({ onOpenEmergencyModal }: FAQProps) {
   };
 
   return (
-    <section className="bg-white border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
+    <section id="faq" className="scroll-mt-18 bg-white border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto space-y-10">
         
         {/* Encabezado */}
