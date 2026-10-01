@@ -20,7 +20,7 @@ interface HeroProps {
 
 export default function Hero({ onOpenEmergencyModal }: HeroProps) {
   return (
-    <section className="relative overflow-hidden w-full lg:min-h-[calc(100vh-102px)] lg:flex lg:flex-col lg:justify-center py-10 lg:py-0 border-b border-slate-200 bg-gradient-to-b from-white via-slate-50/50 to-slate-100/60">
+    <section className="relative overflow-hidden w-full lg:min-h-[calc(100vh-102px)] lg:flex lg:flex-col lg:justify-center py-10 lg:py-0 border-b border-slate-200 bg-white">
       {/* Grilla sutil de fondo tactico */}
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 

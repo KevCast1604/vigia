@@ -29,7 +29,7 @@ export default function LandingPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col antialiased selection:bg-blue-600 selection:text-white">
       {/* 1. Barra de Alerta Oficial PNP (Rojo y Blanco) */}
       <aside className="bg-red-600 text-white text-xs py-2 px-4 shadow-xs" aria-label="Canal oficial de emergencia">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">

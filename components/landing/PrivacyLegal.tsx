@@ -45,7 +45,7 @@ export default function PrivacyLegal() {
   ];
 
   return (
-    <section className="bg-slate-50 border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
+    <section className="bg-white border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto space-y-12 lg:space-y-16">
         
         {/* Encabezado */}
