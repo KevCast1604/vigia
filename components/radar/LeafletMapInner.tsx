@@ -29,10 +29,19 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
     if (!mapContainerRef.current) return;
     if (mapInstanceRef.current) return;
 
-    // Crear instancia de Leaflet centrada en Lima Metropolitana
+    // Límites geográficos para restringir la vista a Perú y alrededores inmediatos
+    const southWest = L.latLng(-19.5, -83.0);
+    const northEast = L.latLng(1.0, -66.5);
+    const peruBounds = L.latLngBounds(southWest, northEast);
+
+    // Crear instancia de Leaflet centrada en Lima Metropolitana y bloqueada a Perú
     const map = L.map(mapContainerRef.current, {
       center: [-12.0464, -77.03],
       zoom: 11.5,
+      minZoom: 6,
+      maxZoom: 18,
+      maxBounds: peruBounds,
+      maxBoundsViscosity: 1.0,
       zoomControl: false,
       attributionControl: false
     });
