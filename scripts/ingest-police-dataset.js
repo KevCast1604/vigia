@@ -75,10 +75,18 @@ const DISTRICT_METADATA = {
   '150141': { key: 'surquillo', name: 'Surquillo', sector: 'Av. Angamos / Tomás Marsano / Mercado N° 1', coords: [-12.1122, -77.0189] },
   '150142': { key: 'ves', name: 'Villa El Salvador', sector: 'Parque Industrial / Av. Central / Pastor Sevilla / Álamos', coords: [-12.2104, -76.9383] },
   '150143': { key: 'vmt', name: 'Villa María del Triunfo', sector: 'Curva de Nueva Esperanza / José Carlos Mariátegui / Tablada', coords: [-12.1583, -76.9381] },
+  // Callao (Provincia Constitucional)
+  '070101': { key: 'callao', name: 'Callao Cercado', sector: 'Av. Sáenz Peña / Puerto del Callao / Chucuito', coords: [-12.0565, -77.1181] },
+  '070102': { key: 'bellavista', name: 'Bellavista', sector: 'Ciudad del Pescador / Av. Faucett / Colonial', coords: [-12.0622, -77.1008] },
+  '070103': { key: 'carmen-de-la-legua', name: 'Carmen de la Legua Reynoso', sector: 'Av. Morales Duárez / Elmer Faucett', coords: [-12.0436, -77.0864] },
+  '070104': { key: 'la-perla', name: 'La Perla', sector: 'Av. Santa Rosa / La Marina / Costanera', coords: [-12.0714, -77.1114] },
+  '070105': { key: 'la-punta', name: 'La Punta', sector: 'Balneario Cantolao / Malecón Figueredo', coords: [-12.0722, -77.1611] },
+  '070106': { key: 'ventanilla', name: 'Ventanilla', sector: 'Ciudad Satélite / Pachacútec / Panamericana Norte', coords: [-11.8789, -77.1264] },
+  '070107': { key: 'mi-peru', name: 'Mi Perú', sector: 'Av. Huaura / Av. Cusco / Mi Perú Central', coords: [-11.8544, -77.1172] },
 };
 
 async function main() {
-  console.log('--- VIGIA ETL: Ingesting Official Police Dataset into Supabase ---');
+  console.log('--- VIGIA ETL: Ingesting Official Police Dataset (Lima + Callao) into Supabase ---');
   console.log('Source CSV:', csvPath);
 
   const fileStream = fs.createReadStream(csvPath, { encoding: 'utf8' });
@@ -87,7 +95,7 @@ async function main() {
   const rowsToInsert = [];
   const districtStats = {};
 
-  // Initialize stats for 43 districts
+  // Initialize stats for 50 districts
   Object.entries(DISTRICT_METADATA).forEach(([ubigeo, meta]) => {
     districtStats[ubigeo] = {
       ubigeo,
@@ -102,7 +110,7 @@ async function main() {
   });
 
   let lineCount = 0;
-  let limaCount = 0;
+  let totalRows = 0;
 
   for await (const line of rl) {
     lineCount++;
@@ -113,15 +121,18 @@ async function main() {
     if (parts.length < 8) continue;
 
     const [anioStr, mesStr, dpto, prov, dist, ubigeo, mod, cantStr] = parts;
+    const ubg = ubigeo.trim().padStart(6, '0');
 
-    // Filter strictly for Lima Metropolitana
-    if (dpto === 'LIMA METROPOLITANA' || (ubigeo && ubigeo.startsWith('1501'))) {
-      limaCount++;
+    // Filter strictly for Lima Metropolitana y Callao
+    const isLima = dpto === 'LIMA METROPOLITANA' || ubg.startsWith('1501');
+    const isCallao = dpto === 'CALLAO' || prov === 'CALLAO' || ubg.startsWith('0701');
+
+    if (isLima || isCallao) {
+      totalRows++;
       const anio = parseInt(anioStr, 10);
       const mes = parseInt(mesStr, 10);
       const cantidad = parseInt(cantStr, 10) || 0;
       const modalidad = mod.trim();
-      const ubg = ubigeo.trim();
 
       rowsToInsert.push({
         anio,
@@ -146,12 +157,12 @@ async function main() {
   }
 
   console.log(`Processed ${lineCount} total lines from CSV.`);
-  console.log(`Filtered ${limaCount} records for Lima Metropolitana.`);
+  console.log(`Filtered ${totalRows} records for Lima Metropolitana y Callao.`);
 
   const force = process.argv.includes('--force');
   const { count: currentCount } = await supabase.from('official_incidents').select('*', { count: 'exact', head: true });
   
-  if (currentCount && currentCount >= limaCount && !force) {
+  if (currentCount && currentCount >= totalRows && !force) {
     console.log(`Supabase already contains ${currentCount} records. Skipping re-insertion (use --force to overwrite).`);
   } else {
     // 1. Clear existing records in Supabase "official_incidents"
@@ -226,7 +237,7 @@ async function main() {
   // Sort district list by official complaints descending
   districtList.sort((a, b) => b.officialComplaints - a.officialComplaints);
 
-  // Calculate Lima Metropolitana consolidated yearly trend
+  // Calculate Lima Metropolitana y Callao consolidated yearly trend
   const metroYearlyTrend = [2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026].map(y => {
     const totalForYear = districtList.reduce((acc, d) => {
       const match = d.yearlyTrend.find(item => item.year === y);
@@ -238,13 +249,13 @@ async function main() {
   const totalMetroComplaints = districtList.reduce((acc, d) => acc + d.officialComplaints, 0);
 
   const metroStats = {
-    key: 'lima-metro',
-    name: 'Lima Metropolitana',
+    key: 'lima-callao-metro',
+    name: 'Lima Metropolitana y Callao',
     ubigeo: '150100',
     officialComplaints: totalMetroComplaints,
     communityPatterns: 0,
-    sectorName: 'Todos los 43 distritos monitoreados (Consolidado Oficial)',
-    coordinates: [-12.0464, -77.03],
+    sectorName: 'Todos los 50 distritos monitoreados (Consolidado Lima y Callao)',
+    coordinates: [-12.0565, -77.06],
     riskLevel: 'very-high',
     yearlyTrend: metroYearlyTrend
   };

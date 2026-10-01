@@ -1,10 +1,10 @@
 import { DistrictKey, DistrictStats } from './types';
 import statsJson from '@/data/lima-official-stats.json';
 
-// Consolidado oficial de toda Lima Metropolitana
+// Consolidado oficial de Lima Metropolitana y Callao
 export const METRO_STATS: DistrictStats = statsJson.metroStats as unknown as DistrictStats;
 
-// Todos los 43 distritos de Lima Metropolitana con datos reales del dataset policial PNP
+// Todos los 50 distritos de Lima Metropolitana y Callao con datos reales del dataset policial PNP
 export const LIMA_DISTRICTS: Record<DistrictKey, DistrictStats> = statsJson.districts as unknown as Record<DistrictKey, DistrictStats>;
 
 // Lista ordenada por volumen de denuncias oficiales de extorsión descendente

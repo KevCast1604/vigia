@@ -57,7 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
               VIGIA
             </span>
             <span className="text-[10px] font-bold uppercase tracking-wider bg-blue-50 text-blue-700 px-2 py-0.5 rounded-md border border-blue-200">
-              Lima Metropolitana
+              Lima y Callao
             </span>
           </div>
           <p className="text-[11px] text-slate-500 font-medium hidden sm:block">

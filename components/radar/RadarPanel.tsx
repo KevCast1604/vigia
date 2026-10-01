@@ -155,13 +155,13 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
               </div>
               <div className="min-w-0">
                 <div className="text-sm font-black text-slate-900 truncate flex items-center gap-1.5">
-                  <span>Vista General Metropolitana</span>
+                  <span>Vista General Lima y Callao</span>
                   <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full border bg-blue-50 text-blue-700 border-blue-200">
                     {Object.keys(LIMA_DISTRICTS).length} Distritos
                   </span>
                 </div>
                 <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                  Consolidado oficial de Lima Metropolitana
+                  Consolidado oficial de Lima y Callao
                 </div>
               </div>
             </div>
@@ -312,7 +312,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
             {/* Pie del Menú con Resumen */}
             <div className="px-3 py-1.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
               <span>{filteredDistricts.length} de {Object.keys(LIMA_DISTRICTS).length} distritos monitoreados</span>
-              <span className="font-mono">PNP Lima</span>
+              <span className="font-mono">PNP Lima & Callao</span>
             </div>
           </div>
         )}
@@ -360,7 +360,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
                 onClick={() => onSwitchView('report')}
                 className="text-[10px] font-bold text-blue-700 hover:text-blue-800 hover:underline flex items-center gap-1"
               >
-                <span>+ Activar escudo vecinal</span>
+                <span>+ Crear reporte en distrito</span>
               </button>
             </div>
           ) : (

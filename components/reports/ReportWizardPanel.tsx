@@ -294,7 +294,7 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
 
           <div className="space-y-1">
             <label htmlFor="report-district" className="text-xs font-bold text-slate-700 block">
-              Distrito del hecho (Lima Metropolitana):
+              Distrito del hecho (Lima y Callao):
             </label>
             <select
               id="report-district"
