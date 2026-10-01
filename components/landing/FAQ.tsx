@@ -9,13 +9,14 @@ import {
   Lock,
   Database,
   Bot,
-  AlertTriangle
+  AlertTriangle,
+  ExternalLink
 } from 'lucide-react';
 
 interface FAQItem {
   id: string;
   question: string;
-  answer: string;
+  answer: React.ReactNode;
   category: string;
   icon: React.ComponentType<{ className?: string }>;
 }
@@ -38,7 +39,24 @@ const FAQ_ITEMS: FAQItem[] = [
   {
     id: 'fuente-datos',
     question: '¿De dónde provienen los datos estadísticos que se muestran en el radar?',
-    answer: 'Los datos históricos del radar territorial provienen del dataset oficial de denuncias policiales registrado por la Policía Nacional del Perú (PNP). La base consolidada abarca desde enero de 2018 hasta julio de 2026, comprendiendo un total de 49,207 denuncias de extorsión georreferenciadas a nivel de los 50 distritos de Lima Metropolitana y el Callao.',
+    answer: (
+      <span className="space-y-2 block">
+        <span>
+          Los datos históricos del radar territorial provienen del dataset oficial de denuncias policiales registrado por la Policía Nacional del Perú (PNP) y publicado en la Plataforma Nacional de Datos Abiertos. La base consolidada abarca desde enero de 2018 hasta julio de 2026, comprendiendo un total de 49,207 denuncias de extorsión georreferenciadas a nivel de los 50 distritos de Lima Metropolitana y el Callao.
+        </span>
+        <span className="block pt-1">
+          <a
+            href="https://www.datosabiertos.gob.pe/dataset/denuncias-policiales/resource/64c01d53-4402-4e5a-936a-4bce5b3d1008"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-700 font-bold underline underline-offset-4 decoration-blue-300 hover:decoration-blue-600 transition-colors"
+          >
+            <span>Ver dataset oficial en el Portal de Datos Abiertos del Estado Peruano</span>
+            <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+          </a>
+        </span>
+      </span>
+    ),
     category: 'Datos Oficiales',
     icon: Database
   },
