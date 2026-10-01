@@ -25,6 +25,7 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersRef = useRef<Record<string, L.CircleMarker>>({});
   const beaconMarkerRef = useRef<L.Marker | null>(null);
+  const isFirstRunRef = useRef<boolean>(true);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -35,10 +36,13 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
     const northEast = L.latLng(3.5, -65.0);
     const peruBounds = L.latLngBounds(southWest, northEast);
 
-    // Crear instancia de Leaflet centrada en Lima Metropolitana con paneo suave
+    // Coordenadas iniciales del distrito seleccionado
+    const initialCoords = (LIMA_DISTRICTS[selectedDistrict] || LIMA_DISTRICTS.sjl).coordinates;
+
+    // Crear instancia de Leaflet centrada directamente en el distrito seleccionado con paneo suave
     const map = L.map(mapContainerRef.current, {
-      center: [-12.0464, -77.03],
-      zoom: 11.5,
+      center: initialCoords,
+      zoom: 12.5,
       minZoom: 5,
       maxZoom: 18,
       maxBounds: peruBounds,
@@ -114,15 +118,29 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
     };
   }, [onDistrictSelect]);
 
-  // Sincronizar foco y animación cuando cambia el distrito seleccionado
+  // Sincronizar foco y redirección suave cuando cambia el distrito seleccionado
   useEffect(() => {
     if (!mapInstanceRef.current) return;
     const target = LIMA_DISTRICTS[selectedDistrict];
     if (target) {
-      mapInstanceRef.current.flyTo(target.coordinates, 13, {
-        animate: true,
-        duration: 0.8
-      });
+      if (isFirstRunRef.current) {
+        isFirstRunRef.current = false;
+      } else {
+        const currentZoom = mapInstanceRef.current.getZoom();
+        if (currentZoom < 12) {
+          // Si el mapa estaba muy alejado, acercar con transición suave
+          mapInstanceRef.current.setView(target.coordinates, 12.5, {
+            animate: true
+          });
+        } else {
+          // Redirigir la vista con un paneo continuo y fluido (sin saltos bruscos ni teletransportación)
+          mapInstanceRef.current.panTo(target.coordinates, {
+            animate: true,
+            duration: 1.25,
+            easeLinearity: 0.25
+          });
+        }
+      }
 
       // Actualizar estilo de los marcadores base
       Object.entries(markersRef.current).forEach(([key, marker]) => {
