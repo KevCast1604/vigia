@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
-  Shield, 
   Search, 
   FileText, 
   Lock, 
@@ -48,9 +48,14 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         )}
 
-        <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs shrink-0">
-          <Shield className="w-5 h-5" />
-        </div>
+        <Image
+          src="/images/vigia-logo.jpg"
+          alt="Logo VIGIA"
+          width={36}
+          height={36}
+          className="w-9 h-9 rounded-xl object-contain border border-slate-200/80 bg-white shadow-xs shrink-0"
+          priority
+        />
         <div>
           <div className="flex items-center gap-2">
             <span className="text-lg font-black tracking-tight text-slate-900 leading-none">

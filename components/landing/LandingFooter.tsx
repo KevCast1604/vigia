@@ -2,8 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
-  Shield, 
   PhoneCall, 
   MapPin, 
   ArrowRight, 
@@ -25,16 +25,17 @@ export default function LandingFooter({ onOpenEmergencyModal }: LandingFooterPro
           {/* Columna 1: Marca y Propósito Cívico (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/20 group-hover:bg-blue-700 transition-colors shrink-0">
-                <Shield className="w-5 h-5" />
-              </div>
+              <Image
+                src="/images/vigia-logo.jpg"
+                alt="Logo VIGIA"
+                width={36}
+                height={36}
+                className="w-9 h-9 rounded-xl object-contain border border-slate-200/80 bg-white shadow-xs group-hover:border-blue-300 transition-colors shrink-0"
+              />
               <div>
                 <div className="flex items-center gap-1.5">
                   <span className="text-lg font-black tracking-tight text-slate-900 leading-none">
                     VIGIA
-                  </span>
-                  <span className="text-[9px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 px-1.5 py-0.5 rounded">
-                    Lima y Callao
                   </span>
                 </div>
                 <p className="text-[10px] text-slate-500 font-medium">

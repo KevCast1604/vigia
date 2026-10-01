@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Shield, 
   Compass, 
@@ -41,16 +42,18 @@ export default function LandingNavbar({ onOpenEmergencyModal }: LandingNavbarPro
           
           {/* 1. Logotipo Institucional VIGIA */}
           <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-600/20 group-hover:bg-blue-700 transition-colors">
-              <Shield className="w-6 h-6" />
-            </div>
+            <Image
+              src="/images/vigia-logo.jpg"
+              alt="Logo VIGIA"
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-xl object-contain border border-slate-200/80 bg-white shadow-xs group-hover:border-blue-300 transition-colors shrink-0"
+              priority
+            />
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xl font-black tracking-tight text-slate-900 leading-none">
                   VIGIA
-                </span>
-                <span className="text-[10px] font-black uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full">
-                  Lima y Callao
                 </span>
               </div>
               <p className="text-[11px] text-slate-500 font-medium hidden sm:block">
