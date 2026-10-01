@@ -97,7 +97,7 @@ export default function FAQ({ onOpenEmergencyModal }: FAQProps) {
   };
 
   return (
-    <section className="bg-slate-50 border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
+    <section className="bg-white border-b border-slate-200 py-14 lg:py-20 px-4 sm:px-6">
       <div className="max-w-4xl mx-auto space-y-10">
         
         {/* Encabezado */}
@@ -125,8 +125,8 @@ export default function FAQ({ onOpenEmergencyModal }: FAQProps) {
             return (
               <div
                 key={item.id}
-                className={`bg-white border rounded-2xl transition-all duration-200 shadow-2xs overflow-hidden ${
-                  isOpen ? 'border-blue-300 ring-2 ring-blue-500/10' : 'border-slate-200 hover:border-slate-300'
+                className={`border rounded-2xl transition-all duration-200 shadow-2xs overflow-hidden ${
+                  isOpen ? 'bg-white border-blue-300 ring-2 ring-blue-500/10' : 'bg-slate-50/80 border-slate-200 hover:border-slate-300'
                 }`}
               >
                 <button

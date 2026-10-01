@@ -17,6 +17,7 @@ import AboutUs from '@/components/landing/AboutUs';
 import MissionVision from '@/components/landing/MissionVision';
 import HowToUse from '@/components/landing/HowToUse';
 import CommunityReports from '@/components/landing/CommunityReports';
+import PrivacyLegal from '@/components/landing/PrivacyLegal';
 import FAQ from '@/components/landing/FAQ';
 import CTASection from '@/components/landing/CTASection';
 
@@ -125,10 +126,13 @@ export default function LandingPage() {
       {/* 8. Seccion Apoya a la Comunidad con tu Reporte (Patron VIGIA) */}
       <CommunityReports onOpenEmergencyModal={handleOpenEmergency} />
 
-      {/* 9. Seccion de Preguntas Frecuentes (FAQ) */}
+      {/* 9. Seccion de Escudo de Privacidad y Cumplimiento Legal (Ley N° 29733) */}
+      <PrivacyLegal />
+
+      {/* 10. Seccion de Preguntas Frecuentes (FAQ) */}
       <FAQ />
 
-      {/* 10. Bloque Destacado de Llamado a la Accion (CTA Final) */}
+      {/* 11. Bloque Destacado de Llamado a la Accion (CTA Final) */}
       <CTASection onOpenEmergencyModal={handleOpenEmergency} />
 
       {/* 11. Modal Radix UI de Canales de Emergencia PNP */}
