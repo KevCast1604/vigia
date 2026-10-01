@@ -26,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es" className={`${fontSans.variable} ${fontMono.variable} h-full antialiased`}>
-      <body className="h-full flex flex-col bg-slate-100 text-slate-800 m-0 p-0 overflow-hidden font-sans">
+      <body className="min-h-full flex flex-col bg-slate-100 text-slate-800 m-0 p-0 font-sans">
         {children}
       </body>
     </html>

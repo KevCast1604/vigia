@@ -13,9 +13,13 @@
   --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-html, body {
+html {
   font-family: var(--font-sans);
   height: 100%;
+}
+
+body {
+  min-height: 100%;
   margin: 0;
   padding: 0;
   background: var(--background);
