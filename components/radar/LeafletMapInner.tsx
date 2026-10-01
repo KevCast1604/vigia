@@ -51,6 +51,12 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
 
     mapInstanceRef.current = map;
 
+    // Observar cambios de tamaño del contenedor para recalcular el mapa al colapsar/expandir el sidebar
+    const resizeObserver = new ResizeObserver(() => {
+      map.invalidateSize();
+    });
+    resizeObserver.observe(mapContainerRef.current);
+
     // Agregar círculos de calor y marcadores para cada distrito
     Object.values(LIMA_DISTRICTS).forEach((dist) => {
       const colors = RISK_COLORS[dist.riskLevel];
@@ -87,6 +93,7 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
     });
 
     return () => {
+      resizeObserver.disconnect();
       map.remove();
       mapInstanceRef.current = null;
     };

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { PanelLeftClose } from 'lucide-react';
 import { ViewType, DistrictKey } from '@/lib/types';
 import { Header } from '@/components/layout/Header';
 import { EmergencyBanner } from '@/components/layout/EmergencyBanner';
@@ -17,22 +18,30 @@ export default function VigiaHomePage() {
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [isQuickExitOpen, setIsQuickExitOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState<'panel' | 'map'>('panel');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleDistrictSelect = (district: DistrictKey) => {
     setSelectedDistrict(district);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen((prev) => !prev);
+  };
+
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-slate-100 antialiased font-sans">
-      {/* 1. Cabecera Principal con Pestañas y Salida Rápida */}
+      {/* 1. Cabecera Principal con Pestañas, Toggle de Sidebar y Salida Rápida */}
       <Header
         currentView={currentView}
         onViewChange={(view) => {
           setCurrentView(view);
           setMobileTab('panel');
+          setIsSidebarOpen(true);
         }}
         onOpenHelp={() => setIsHelpOpen(true)}
         onQuickExit={() => setIsQuickExitOpen(true)}
+        isSidebarOpen={isSidebarOpen}
+        onToggleSidebar={toggleSidebar}
       />
 
       {/* 2. Banner Oficial de Emergencia PNP */}
@@ -66,12 +75,32 @@ export default function VigiaHomePage() {
           </button>
         </div>
 
-        {/* Panel Izquierdo: Control, Verificador y Reporte (Scroll independiente) */}
+        {/* Panel Izquierdo: Control, Verificador y Reporte (Colapsable / Expandible) */}
         <div
-          className={`w-full md:w-[480px] lg:w-[520px] h-full flex flex-col bg-white border-r border-slate-200 z-10 shadow-sm shrink-0 overflow-y-auto pb-16 md:pb-0 ${
+          className={`h-full flex flex-col bg-white border-r border-slate-200 z-10 shadow-sm shrink-0 overflow-y-auto pb-16 md:pb-0 transition-all duration-300 ease-in-out ${
             mobileTab === 'map' ? 'hidden md:flex' : 'flex'
+          } ${
+            isSidebarOpen
+              ? 'w-full md:w-[480px] lg:w-[520px] opacity-100'
+              : 'w-0 opacity-0 pointer-events-none md:border-r-0 overflow-hidden'
           }`}
         >
+          {/* Barra superior de control del panel para colapsar en Desktop */}
+          <div className="hidden md:flex items-center justify-between px-4 py-2 border-b border-slate-100 bg-slate-50/60">
+            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+              {currentView === 'radar' && 'Panel del Radar Territorial'}
+              {currentView === 'verifier' && 'Verificador Criptográfico'}
+              {currentView === 'report' && 'Reporte Comunitario Anónimo'}
+            </span>
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="text-slate-400 hover:text-slate-700 p-1 rounded-lg hover:bg-slate-200/60 transition-colors"
+              title="Colapsar panel lateral"
+            >
+              <PanelLeftClose className="w-4 h-4" />
+            </button>
+          </div>
+
           {currentView === 'radar' && (
             <RadarPanel
               selectedDistrict={selectedDistrict}
@@ -104,6 +133,8 @@ export default function VigiaHomePage() {
           <MapView
             selectedDistrict={selectedDistrict}
             onDistrictSelect={handleDistrictSelect}
+            isSidebarOpen={isSidebarOpen}
+            onToggleSidebar={toggleSidebar}
           />
         </div>
       </main>

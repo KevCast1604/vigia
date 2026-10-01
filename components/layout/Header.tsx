@@ -1,7 +1,17 @@
 'use client';
 
 import React from 'react';
-import { Shield, Search, FileText, Lock, PhoneCall, EyeOff, Map } from 'lucide-react';
+import { 
+  Shield, 
+  Search, 
+  FileText, 
+  Lock, 
+  PhoneCall, 
+  EyeOff, 
+  Map, 
+  PanelLeftClose, 
+  PanelLeftOpen 
+} from 'lucide-react';
 import { ViewType } from '@/lib/types';
 
 interface HeaderProps {
@@ -9,19 +19,37 @@ interface HeaderProps {
   onViewChange: (view: ViewType) => void;
   onOpenHelp: () => void;
   onQuickExit: () => void;
+  isSidebarOpen?: boolean;
+  onToggleSidebar?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   currentView,
   onViewChange,
   onOpenHelp,
-  onQuickExit
+  onQuickExit,
+  isSidebarOpen = true,
+  onToggleSidebar
 }) => {
   return (
     <header className="bg-white/95 backdrop-blur border-b border-slate-200 px-4 sm:px-6 py-2.5 flex items-center justify-between shrink-0 z-30">
       {/* Logotipo y Título */}
       <div className="flex items-center gap-3">
-        <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs">
+        {onToggleSidebar && (
+          <button
+            onClick={onToggleSidebar}
+            className="hidden md:flex p-1.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-900 bg-slate-50 hover:bg-slate-100 transition-colors shadow-xs"
+            title={isSidebarOpen ? 'Colapsar panel lateral' : 'Expandir panel lateral'}
+          >
+            {isSidebarOpen ? (
+              <PanelLeftClose className="w-4 h-4 text-slate-600" />
+            ) : (
+              <PanelLeftOpen className="w-4 h-4 text-blue-600" />
+            )}
+          </button>
+        )}
+
+        <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-xs shrink-0">
           <Shield className="w-5 h-5" />
         </div>
         <div>

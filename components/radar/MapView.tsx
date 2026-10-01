@@ -2,7 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { ShieldCheck, MapPin, Layers } from 'lucide-react';
+import { ShieldCheck, MapPin, Layers, PanelLeftOpen } from 'lucide-react';
 import { DistrictKey, DistrictStats } from '@/lib/types';
 import { LIMA_DISTRICTS } from '@/lib/districts-data';
 
@@ -23,9 +23,16 @@ const LeafletMap = dynamic(
 interface MapViewProps {
   selectedDistrict: DistrictKey;
   onDistrictSelect: (district: DistrictKey) => void;
+  isSidebarOpen?: boolean;
+  onToggleSidebar?: () => void;
 }
 
-export const MapView: React.FC<MapViewProps> = ({ selectedDistrict, onDistrictSelect }) => {
+export const MapView: React.FC<MapViewProps> = ({
+  selectedDistrict,
+  onDistrictSelect,
+  isSidebarOpen = true,
+  onToggleSidebar
+}) => {
   const currentDistrict: DistrictStats = LIMA_DISTRICTS[selectedDistrict] || LIMA_DISTRICTS.sjl;
 
   return (
@@ -36,8 +43,24 @@ export const MapView: React.FC<MapViewProps> = ({ selectedDistrict, onDistrictSe
         onDistrictSelect={onDistrictSelect}
       />
 
-      {/* Badge Flotante Superior Izquierdo: Capa Activa */}
-      <div className="absolute top-4 left-4 z-[400] bg-white/95 backdrop-blur border border-slate-200 px-3 py-1.5 rounded-xl shadow-xs flex items-center gap-2">
+      {/* Botón Flotante para expandir el panel si está colapsado */}
+      {!isSidebarOpen && onToggleSidebar && (
+        <button
+          onClick={onToggleSidebar}
+          className="hidden md:flex absolute top-4 left-4 z-[450] bg-white/95 backdrop-blur border border-slate-200 px-3 py-1.5 rounded-xl shadow-md items-center gap-2 text-xs font-bold text-slate-800 hover:bg-slate-50 transition-all shadow-xs"
+          title="Mostrar panel lateral"
+        >
+          <PanelLeftOpen className="w-4 h-4 text-blue-600" />
+          <span>Mostrar Panel</span>
+        </button>
+      )}
+
+      {/* Badge Flotante: Capa Activa */}
+      <div
+        className={`absolute top-4 ${
+          !isSidebarOpen ? 'left-4 sm:left-40' : 'left-4'
+        } z-[400] bg-white/95 backdrop-blur border border-slate-200 px-3 py-1.5 rounded-xl shadow-xs flex items-center gap-2 transition-all duration-300`}
+      >
         <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
           <Layers className="w-3.5 h-3.5 text-blue-600" />
           <span>Extorsión · Lima Metropolitana</span>
