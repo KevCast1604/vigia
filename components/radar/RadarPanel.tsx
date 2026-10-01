@@ -97,10 +97,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
     <div className="space-y-4 flex flex-col flex-1 p-4 sm:p-5">
       {/* Título de la sección */}
       <div>
-        <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200">
-          Dataset Policial PNP (2018 - 2026)
-        </span>
-        <h2 className="text-xl font-black text-slate-900 mt-2 tracking-tight">
+        <h2 className="text-xl font-black text-slate-900 tracking-tight">
           Incidencia por Distrito
         </h2>
         <p className="text-xs text-slate-500 font-medium mt-0.5">
@@ -155,13 +152,13 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
               </div>
               <div className="min-w-0">
                 <div className="text-sm font-black text-slate-900 truncate flex items-center gap-1.5">
-                  <span>Vista General Lima y Callao</span>
+                  <span>Vista General</span>
                   <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full border bg-blue-50 text-blue-700 border-blue-200">
                     {Object.keys(LIMA_DISTRICTS).length} Distritos
                   </span>
                 </div>
                 <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                  Consolidado oficial de Lima y Callao
+                  Consolidado oficial metropolitano
                 </div>
               </div>
             </div>
@@ -312,7 +309,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
             {/* Pie del Menú con Resumen */}
             <div className="px-3 py-1.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
               <span>{filteredDistricts.length} de {Object.keys(LIMA_DISTRICTS).length} distritos monitoreados</span>
-              <span className="font-mono">PNP Lima & Callao</span>
+              <span className="font-mono">Fuente: PNP</span>
             </div>
           </div>
         )}
@@ -322,16 +319,21 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
       <div className="grid grid-cols-2 gap-3">
         <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 shadow-xs flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500 mb-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
-              <span>Denuncias PNP</span>
+            <div className="flex items-center justify-between mb-1">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-slate-500">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
+                <span>Denuncias PNP</span>
+              </div>
+              <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">
+                Oficial
+              </span>
             </div>
             <div className="text-2xl font-black text-slate-900">
               {currentData.officialComplaints.toLocaleString()}
             </div>
           </div>
-          <p className="text-[10px] text-slate-400 mt-2 font-medium">
-            Acumulado oficial (PNP)
+          <p className="text-[10px] text-slate-500 mt-2 font-medium">
+            Desde enero de 2018 a julio de 2026
           </p>
         </div>
 
@@ -378,7 +380,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
             <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
             Tendencia Histórica de Denuncias
           </span>
-          <span className="text-[10px] font-mono text-slate-400">Oficial (2018-2026)</span>
+          <span className="text-[10px] font-mono text-slate-500">Ene 2018 – Jul 2026</span>
         </div>
 
         <div className="space-y-1.5 pt-1 text-[11px] font-medium text-slate-600">

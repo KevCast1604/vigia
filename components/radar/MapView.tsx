@@ -62,20 +62,6 @@ export const MapView: React.FC<MapViewProps> = ({
         </button>
       )}
 
-      {/* Badge Flotante: Capa Activa */}
-      <div
-        className={`absolute top-4 ${
-          !isSidebarOpen ? 'left-4 sm:left-40' : 'left-4'
-        } z-[400] bg-white/95 backdrop-blur border border-slate-200 px-3 py-1.5 rounded-xl shadow-xs flex items-center gap-2 transition-all duration-300`}
-      >
-        <div className="flex items-center gap-1.5 text-xs font-bold text-slate-900">
-          <Layers className="w-3.5 h-3.5 text-blue-600" />
-          <span>Extorsión · Lima y Callao</span>
-        </div>
-        <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-          Zonas Agregadas
-        </span>
-      </div>
 
       {/* Leyenda de Calor en la Esquina Superior Derecha: Nivel de Incidencia */}
       <div className="absolute top-4 right-4 z-[400] bg-white/95 backdrop-blur-md border border-slate-200 p-3.5 sm:p-4 rounded-2xl shadow-md min-w-[210px] sm:min-w-[230px] hidden sm:block">
@@ -214,7 +200,7 @@ export const MapView: React.FC<MapViewProps> = ({
             <div className="bg-slate-50 border border-slate-100 rounded-xl p-2 text-center">
               <span className="text-[10px] font-bold text-slate-400 block">Denuncias PNP</span>
               <span className="text-sm font-black text-slate-900">{currentDistrict.officialComplaints.toLocaleString()}</span>
-              <span className="text-[9px] text-slate-400 block font-medium">Oficiales</span>
+              <span className="text-[9px] text-slate-500 block font-medium">Ene 2018 – Jul 2026</span>
             </div>
             <div className="bg-amber-50/70 border border-amber-100 rounded-xl p-2 text-center">
               <span className="text-[10px] font-bold text-amber-700 block">Alertas VIGIA</span>
@@ -233,7 +219,7 @@ export const MapView: React.FC<MapViewProps> = ({
           <div className="flex items-center justify-between border-b border-slate-100 pb-1.5">
             <div className="flex items-center gap-1.5 text-[10px] font-black uppercase tracking-wider text-slate-600">
               <Layers className="w-3.5 h-3.5 text-blue-600" />
-              <span>Vista General Lima y Callao</span>
+              <span>Vista General</span>
             </div>
             <span className="text-[10px] font-bold text-blue-700 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-200">
               {Object.keys(LIMA_DISTRICTS).length} Distritos

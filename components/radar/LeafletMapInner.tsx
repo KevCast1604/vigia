@@ -100,7 +100,7 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
 
       // Tooltip informativo
       marker.bindTooltip(
-        `<strong>${dist.name}</strong><br/><span style="font-size: 10px; color: #475569;">${dist.officialComplaints.toLocaleString()} denuncias oficiales (PNP)</span>`,
+        `<strong>${dist.name}</strong><br/><span style="font-size: 10px; color: #475569;">${dist.officialComplaints.toLocaleString()} denuncias oficiales (Ene 2018 – Jul 2026)</span>`,
         { direction: 'top', offset: [0, -10], opacity: 0.95 }
       );
 
