@@ -24,24 +24,26 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<L.Map | null>(null);
   const markersRef = useRef<Record<string, L.CircleMarker>>({});
+  const beaconMarkerRef = useRef<L.Marker | null>(null);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
     if (mapInstanceRef.current) return;
 
-    // Límites geográficos para restringir la vista a Perú y alrededores inmediatos
-    const southWest = L.latLng(-19.5, -83.0);
-    const northEast = L.latLng(1.0, -66.5);
+    // Límites geográficos holgados para Perú y alrededores inmediatos
+    const southWest = L.latLng(-22.0, -86.0);
+    const northEast = L.latLng(3.5, -65.0);
     const peruBounds = L.latLngBounds(southWest, northEast);
 
-    // Crear instancia de Leaflet centrada en Lima Metropolitana y bloqueada a Perú
+    // Crear instancia de Leaflet centrada en Lima Metropolitana con paneo suave
     const map = L.map(mapContainerRef.current, {
       center: [-12.0464, -77.03],
       zoom: 11.5,
-      minZoom: 6,
+      minZoom: 5,
       maxZoom: 18,
       maxBounds: peruBounds,
-      maxBoundsViscosity: 1.0,
+      maxBoundsViscosity: 0.3, // Viscosidad suave para eliminar el temblor o vibración al arrastrar
+      bounceAtZoomLimits: false,
       zoomControl: false,
       attributionControl: false
     });
@@ -103,6 +105,10 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
 
     return () => {
       resizeObserver.disconnect();
+      if (beaconMarkerRef.current) {
+        beaconMarkerRef.current.remove();
+        beaconMarkerRef.current = null;
+      }
       map.remove();
       mapInstanceRef.current = null;
     };
@@ -118,16 +124,68 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
         duration: 0.8
       });
 
-      // Resaltar marcador seleccionado
+      // Actualizar estilo de los marcadores base
       Object.entries(markersRef.current).forEach(([key, marker]) => {
+        const d = LIMA_DISTRICTS[key as DistrictKey];
+        const colors = RISK_COLORS[d.riskLevel];
         if (key === selectedDistrict) {
-          marker.setRadius(16);
-          marker.setStyle({ weight: 4 });
+          marker.setStyle({
+            opacity: 0,
+            fillOpacity: 0
+          });
         } else {
           marker.setRadius(12);
-          marker.setStyle({ weight: 2 });
+          marker.setStyle({
+            weight: 2,
+            color: colors.border,
+            fillColor: colors.fill,
+            opacity: 1,
+            fillOpacity: 0.85
+          });
         }
       });
+
+      // Remover baliza anterior si existe
+      if (beaconMarkerRef.current) {
+        beaconMarkerRef.current.remove();
+        beaconMarkerRef.current = null;
+      }
+
+      // Crear baliza radar animada de alta visibilidad para el distrito seleccionado
+      const colors = RISK_COLORS[target.riskLevel];
+      const beaconIcon = L.divIcon({
+        className: 'vigia-selection-beacon',
+        iconSize: [0, 0],
+        iconAnchor: [0, 0],
+        html: `
+          <div style="position: relative; display: flex; align-items: center; justify-content: center; pointer-events: none;">
+            <!-- Onda sonar animada primaria -->
+            <div class="vigia-beacon-pulse" style="position: absolute; width: 68px; height: 68px; border-radius: 9999px; background: rgba(37, 99, 235, 0.22); border: 2.5px solid rgba(37, 99, 235, 0.85);"></div>
+            <!-- Onda sonar animada secundaria -->
+            <div class="vigia-beacon-pulse-delayed" style="position: absolute; width: 96px; height: 96px; border-radius: 9999px; background: rgba(59, 130, 246, 0.12); border: 1.5px dashed rgba(59, 130, 246, 0.55);"></div>
+
+            <!-- Baliza central con borde de alto contraste -->
+            <div style="position: absolute; width: 36px; height: 36px; border-radius: 9999px; background: #ffffff; border: 3.5px solid #1e40af; box-shadow: 0 0 20px rgba(37, 99, 235, 0.6), 0 4px 10px rgba(0,0,0,0.3); transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; z-index: 50;">
+              <div style="width: 16px; height: 16px; border-radius: 9999px; background-color: ${colors.fill}; border: 2.5px solid #ffffff; box-shadow: 0 0 6px rgba(0,0,0,0.25);"></div>
+            </div>
+
+            <!-- Etiqueta flotante superior de distrito activo -->
+            <div style="position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); white-space: nowrap; background: #0f172a; color: #ffffff; padding: 5px 12px; border-radius: 10px; border: 1.5px solid rgba(255, 255, 255, 0.35); box-shadow: 0 8px 20px rgba(0,0,0,0.35); z-index: 60; display: flex; align-items: center; gap: 7px;">
+              <span style="display: inline-block; width: 8px; height: 8px; border-radius: 9999px; background: #38bdf8; box-shadow: 0 0 8px #38bdf8;"></span>
+              <span style="font-size: 12px; font-weight: 800; letter-spacing: -0.01em;">${target.name}</span>
+              <span style="font-size: 9px; font-weight: 800; color: #93c5fd; background: rgba(37, 99, 235, 0.35); border: 1px solid rgba(147, 197, 253, 0.3); padding: 1.5px 6px; border-radius: 5px; text-transform: uppercase;">Activo</span>
+            </div>
+          </div>
+        `
+      });
+
+      const beacon = L.marker(target.coordinates, {
+        icon: beaconIcon,
+        zIndexOffset: 1500,
+        interactive: false
+      }).addTo(mapInstanceRef.current);
+
+      beaconMarkerRef.current = beacon;
     }
   }, [selectedDistrict]);
 

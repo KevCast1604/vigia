@@ -20,3 +20,37 @@ html, body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Optimización para evitar temblores o jitter durante el paneo de Leaflet */
+.leaflet-container {
+  touch-action: pan-x pan-y;
+  outline: none;
+}
+
+.leaflet-tile-container {
+  will-change: transform;
+}
+
+
+@keyframes vigia-sonar {
+  0% {
+    transform: translate(-50%, -50%) scale(0.4);
+    opacity: 0.9;
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0.35;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+.vigia-beacon-pulse {
+  animation: vigia-sonar 2s cubic-bezier(0.1, 0.2, 0.3, 1) infinite;
+}
+
+.vigia-beacon-pulse-delayed {
+  animation: vigia-sonar 2s cubic-bezier(0.1, 0.2, 0.3, 1) infinite 0.65s;
+}
