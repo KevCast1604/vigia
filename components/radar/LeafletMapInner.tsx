@@ -40,12 +40,12 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
     // Control de zoom en la esquina inferior derecha
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
-    // Tiles CartoDB Positron (Claro, de alto contraste y limpio)
+    // Capa de tiles oficial de OpenStreetMap (100% libre, sin requerir API key)
     L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       {
-        maxZoom: 18,
-        subdomains: 'abcd'
+        maxZoom: 19,
+        attribution: '&copy; OpenStreetMap contributors'
       }
     ).addTo(map);
 
