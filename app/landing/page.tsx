@@ -17,6 +17,7 @@ import AboutUs from '@/components/landing/AboutUs';
 import MissionVision from '@/components/landing/MissionVision';
 import HowToUse from '@/components/landing/HowToUse';
 import CommunityReports from '@/components/landing/CommunityReports';
+import FAQ from '@/components/landing/FAQ';
 
 export default function LandingPage() {
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
@@ -123,7 +124,10 @@ export default function LandingPage() {
       {/* 8. Seccion Apoya a la Comunidad con tu Reporte (Patron VIGIA) */}
       <CommunityReports onOpenEmergencyModal={handleOpenEmergency} />
 
-      {/* 9. Modal Radix UI de Canales de Emergencia PNP */}
+      {/* 9. Seccion de Preguntas Frecuentes (FAQ) */}
+      <FAQ onOpenEmergencyModal={handleOpenEmergency} />
+
+      {/* 10. Modal Radix UI de Canales de Emergencia PNP */}
       <Dialog.Root open={isEmergencyModalOpen} onOpenChange={setIsEmergencyModalOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 animate-in fade-in" />
