@@ -1,13 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { 
   HelpCircle, 
   ChevronDown, 
   ShieldCheck, 
   PhoneCall, 
-  ArrowRight,
   Lock,
   Database,
   Bot,
@@ -172,39 +170,6 @@ export default function FAQ({ onOpenEmergencyModal }: FAQProps) {
               </div>
             );
           })}
-        </div>
-
-        {/* Banner Inferior de Ayuda Directa */}
-        <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-1.5 text-center sm:text-left">
-            <h4 className="text-lg font-black tracking-tight">
-              ¿Tienes una duda adicional o necesitas auxilio inmediato?
-            </h4>
-            <p className="text-xs sm:text-sm text-blue-200 font-normal max-w-xl">
-              Si tu seguridad personal o la de tu negocio está en riesgo inminente, comunícate directamente con la Policía Nacional del Perú.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 shrink-0">
-            {onOpenEmergencyModal && (
-              <button
-                type="button"
-                onClick={onOpenEmergencyModal}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-md flex items-center gap-2 transition-colors"
-              >
-                <PhoneCall className="w-3.5 h-3.5" />
-                <span>Línea 111 PNP</span>
-              </button>
-            )}
-
-            <Link
-              href="/"
-              className="bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs px-4 py-2.5 rounded-xl shadow-xs flex items-center gap-1.5 transition-colors"
-            >
-              <span>Abrir Radar Territorial</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
         </div>
 
       </div>

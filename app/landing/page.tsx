@@ -18,6 +18,7 @@ import MissionVision from '@/components/landing/MissionVision';
 import HowToUse from '@/components/landing/HowToUse';
 import CommunityReports from '@/components/landing/CommunityReports';
 import FAQ from '@/components/landing/FAQ';
+import CTASection from '@/components/landing/CTASection';
 
 export default function LandingPage() {
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
@@ -125,9 +126,12 @@ export default function LandingPage() {
       <CommunityReports onOpenEmergencyModal={handleOpenEmergency} />
 
       {/* 9. Seccion de Preguntas Frecuentes (FAQ) */}
-      <FAQ onOpenEmergencyModal={handleOpenEmergency} />
+      <FAQ />
 
-      {/* 10. Modal Radix UI de Canales de Emergencia PNP */}
+      {/* 10. Bloque Destacado de Llamado a la Accion (CTA Final) */}
+      <CTASection onOpenEmergencyModal={handleOpenEmergency} />
+
+      {/* 11. Modal Radix UI de Canales de Emergencia PNP */}
       <Dialog.Root open={isEmergencyModalOpen} onOpenChange={setIsEmergencyModalOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 animate-in fade-in" />

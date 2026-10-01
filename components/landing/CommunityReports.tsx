@@ -1,26 +1,22 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 import { 
   Users, 
   Lock, 
-  FileText, 
   ShieldAlert, 
   PhoneCall, 
-  ArrowRight, 
   CheckCircle2, 
-  AlertTriangle,
-  Coins,
-  Store,
-  Sparkles
+  AlertTriangle, 
+  Coins, 
+  Store 
 } from 'lucide-react';
 
 interface CommunityReportsProps {
-  onOpenEmergencyModal: () => void;
+  onOpenEmergencyModal?: () => void;
 }
 
-export default function CommunityReports({ onOpenEmergencyModal }: CommunityReportsProps) {
+export default function CommunityReports({ onOpenEmergencyModal: _onOpenEmergencyModal }: CommunityReportsProps) {
   const modalities = [
     {
       title: 'Cobro de Cupos a Negocios',
@@ -165,43 +161,6 @@ export default function CommunityReports({ onOpenEmergencyModal }: CommunityRepo
                 </div>
               );
             })}
-          </div>
-        </div>
-
-        {/* Bloque Destacado de Llamado a la Accion */}
-        <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-slate-900 text-white rounded-3xl p-8 sm:p-10 shadow-xl space-y-6 relative overflow-hidden">
-          <div className="max-w-2xl space-y-3 relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-200 text-xs font-bold">
-              <FileText className="w-3.5 h-3.5 text-blue-300" />
-              <span>Asistente de Reporte Activo en la Plataforma</span>
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl font-black tracking-tight leading-tight">
-              ¿Fuiste testigo o recibiste una amenaza? Tu reporte previene a tu distrito.
-            </h3>
-
-            <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-              El proceso toma menos de 2 minutos. Selecciona la modalidad, el distrito y registra los detalles de forma segura y anonima para alimentar el mapa territorial.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2 relative z-10">
-            <Link
-              href="/"
-              className="bg-white hover:bg-blue-50 text-blue-900 font-black text-xs sm:text-sm px-6 py-3.5 rounded-2xl shadow-md flex items-center gap-2 transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>Generar Reporte Anonimo en la App</span>
-              <ArrowRight className="w-4 h-4 text-blue-600" />
-            </Link>
-
-            <button
-              type="button"
-              onClick={onOpenEmergencyModal}
-              className="bg-red-600 hover:bg-red-700 text-white font-bold text-xs sm:text-sm px-5 py-3.5 rounded-2xl flex items-center gap-2 transition-colors shadow-md shadow-red-600/30"
-            >
-              <PhoneCall className="w-4 h-4 text-white" />
-              <span>Canal de Emergencia PNP (111)</span>
-            </button>
           </div>
         </div>
 
