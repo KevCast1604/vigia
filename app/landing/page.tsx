@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { 
-  Shield, 
   PhoneCall, 
   X
 } from 'lucide-react';
@@ -18,6 +17,7 @@ import CommunityReports from '@/components/landing/CommunityReports';
 import PrivacyLegal from '@/components/landing/PrivacyLegal';
 import FAQ from '@/components/landing/FAQ';
 import CTASection from '@/components/landing/CTASection';
+import LandingFooter from '@/components/landing/LandingFooter';
 
 export default function LandingPage() {
   const [isEmergencyModalOpen, setIsEmergencyModalOpen] = useState(false);
@@ -151,19 +151,8 @@ export default function LandingPage() {
         </Dialog.Portal>
       </Dialog.Root>
 
-      {/* 7. Footer Institucional */}
-      <footer className="bg-white border-t border-slate-200 py-8 px-4 sm:px-6 text-xs text-slate-500 font-medium">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-blue-600" />
-            <span className="font-bold text-slate-800">VIGIA Peru</span>
-            <span>· Monitoreo Territorial e Inteligencia Preventiva</span>
-          </div>
-          <div>
-            <span>Dataset Policial PNP (Enero 2018 – Julio 2026) · Plataforma Civica Independiente</span>
-          </div>
-        </div>
-      </footer>
+      {/* 12. Footer Institucional Modular y Completo */}
+      <LandingFooter onOpenEmergencyModal={handleOpenEmergency} />
     </div>
   );
 }
