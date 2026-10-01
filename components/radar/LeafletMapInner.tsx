@@ -6,8 +6,8 @@ import { DistrictKey, DistrictStats } from '@/lib/types';
 import { LIMA_DISTRICTS } from '@/lib/districts-data';
 
 interface LeafletMapInnerProps {
-  selectedDistrict: DistrictKey;
-  onDistrictSelect: (district: DistrictKey) => void;
+  selectedDistrict: DistrictKey | null;
+  onDistrictSelect: (district: DistrictKey | null) => void;
 }
 
 const RISK_COLORS: Record<DistrictStats['riskLevel'], { border: string; fill: string }> = {
@@ -26,6 +26,7 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
   const markersRef = useRef<Record<string, L.CircleMarker>>({});
   const beaconMarkerRef = useRef<L.Marker | null>(null);
   const isFirstRunRef = useRef<boolean>(true);
+  const selectedDistrictRef = useRef<DistrictKey | null>(selectedDistrict);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -36,13 +37,16 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
     const northEast = L.latLng(3.5, -65.0);
     const peruBounds = L.latLngBounds(southWest, northEast);
 
-    // Coordenadas iniciales del distrito seleccionado
-    const initialCoords = (LIMA_DISTRICTS[selectedDistrict] || LIMA_DISTRICTS.sjl).coordinates;
+    // Coordenadas iniciales del distrito seleccionado o centro de Lima
+    const initialCoords: [number, number] = selectedDistrict && LIMA_DISTRICTS[selectedDistrict]
+      ? LIMA_DISTRICTS[selectedDistrict].coordinates
+      : [-12.0464, -77.03];
+    const initialZoom = selectedDistrict ? 12.5 : 11.5;
 
-    // Crear instancia de Leaflet centrada directamente en el distrito seleccionado con paneo suave
+    // Crear instancia de Leaflet centrada directamente con paneo suave
     const map = L.map(mapContainerRef.current, {
       center: initialCoords,
-      zoom: 12.5,
+      zoom: initialZoom,
       minZoom: 5,
       maxZoom: 18,
       maxBounds: peruBounds,
@@ -96,15 +100,25 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
 
       // Tooltip informativo
       marker.bindTooltip(
-        `<strong>${dist.name}</strong><br/><span style="font-size: 10px; color: #475569;">${dist.officialComplaints} denuncias oficiales</span>`,
+        `<strong>${dist.name}</strong><br/><span style="font-size: 10px; color: #475569;">${dist.officialComplaints.toLocaleString()} denuncias oficiales (PNP)</span>`,
         { direction: 'top', offset: [0, -10], opacity: 0.95 }
       );
 
-      marker.on('click', () => {
-        onDistrictSelect(dist.key);
+      marker.on('click', (e) => {
+        L.DomEvent.stopPropagation(e);
+        if (selectedDistrictRef.current === dist.key) {
+          onDistrictSelect(null); // Al volver a pulsar el seleccionado, se deselecciona!
+        } else {
+          onDistrictSelect(dist.key);
+        }
       });
 
       markersRef.current[dist.key] = marker;
+    });
+
+    // Clic en cualquier área libre del mapa para deseleccionar el distrito
+    map.on('click', () => {
+      onDistrictSelect(null);
     });
 
     return () => {
@@ -120,7 +134,40 @@ export const LeafletMapInner: React.FC<LeafletMapInnerProps> = ({
 
   // Sincronizar foco y redirección suave cuando cambia el distrito seleccionado
   useEffect(() => {
+    selectedDistrictRef.current = selectedDistrict;
     if (!mapInstanceRef.current) return;
+
+    if (!selectedDistrict) {
+      // Deseleccionar: remover baliza radar y restaurar marcadores base
+      if (beaconMarkerRef.current) {
+        beaconMarkerRef.current.remove();
+        beaconMarkerRef.current = null;
+      }
+
+      Object.entries(markersRef.current).forEach(([key, marker]) => {
+        const d = LIMA_DISTRICTS[key as DistrictKey];
+        const colors = RISK_COLORS[d.riskLevel];
+        marker.setRadius(12);
+        marker.setStyle({
+          weight: 2,
+          color: colors.border,
+          fillColor: colors.fill,
+          opacity: 1,
+          fillOpacity: 0.85
+        });
+      });
+
+      // Redirigir la cámara suavemente a la vista general de Lima Metropolitana
+      if (!isFirstRunRef.current) {
+        mapInstanceRef.current.setView([-12.0464, -77.03], 11.5, {
+          animate: true
+        });
+      } else {
+        isFirstRunRef.current = false;
+      }
+      return;
+    }
+
     const target = LIMA_DISTRICTS[selectedDistrict];
     if (target) {
       if (isFirstRunRef.current) {

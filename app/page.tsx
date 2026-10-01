@@ -14,12 +14,12 @@ import { MapView } from '@/components/radar/MapView';
 
 export default function VigiaHomePage() {
   const [currentView, setCurrentView] = useState<ViewType>('radar');
-  const [selectedDistrict, setSelectedDistrict] = useState<DistrictKey>('sjl');
+  const [selectedDistrict, setSelectedDistrict] = useState<DistrictKey | null>('sjl');
   const [isHelpOpen, setIsHelpOpen] = useState(false);
   const [mobileTab, setMobileTab] = useState<'panel' | 'map'>('panel');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
-  const handleDistrictSelect = (district: DistrictKey) => {
+  const handleDistrictSelect = (district: DistrictKey | null) => {
     setSelectedDistrict(district);
   };
 

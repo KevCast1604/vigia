@@ -1,13 +1,13 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { ShieldCheck, Users, TrendingUp, Search, PlusCircle, ChevronDown, Check } from 'lucide-react';
+import { ShieldCheck, Users, TrendingUp, Search, PlusCircle, ChevronDown, Check, X, Layers } from 'lucide-react';
 import { DistrictKey, DistrictStats, ViewType } from '@/lib/types';
-import { LIMA_DISTRICTS } from '@/lib/districts-data';
+import { LIMA_DISTRICTS, METRO_STATS } from '@/lib/districts-data';
 
 interface RadarPanelProps {
-  selectedDistrict: DistrictKey;
-  onDistrictChange: (district: DistrictKey) => void;
+  selectedDistrict: DistrictKey | null;
+  onDistrictChange: (district: DistrictKey | null) => void;
   onSwitchView: (view: ViewType) => void;
 }
 
@@ -23,7 +23,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
   onDistrictChange,
   onSwitchView
 }) => {
-  const currentData: DistrictStats = LIMA_DISTRICTS[selectedDistrict] || LIMA_DISTRICTS.sjl;
+  const currentData: DistrictStats = selectedDistrict ? (LIMA_DISTRICTS[selectedDistrict] || METRO_STATS) : METRO_STATS;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -88,7 +88,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
               <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
             </span>
             <span className="text-[11px] font-black uppercase tracking-wider text-blue-900">
-              Distrito Seleccionado
+              {selectedDistrict ? 'Distrito Seleccionado' : 'Vista Metropolitana'}
             </span>
           </span>
           <span className="text-[10px] text-slate-400 font-medium">Intercambiable en el mapa</span>
@@ -104,24 +104,56 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
           aria-expanded={isDropdownOpen}
           aria-haspopup="listbox"
         >
-          <div className="flex items-center gap-2.5 min-w-0">
-            <span className={`w-3.5 h-3.5 rounded-full shrink-0 ${RISK_LABELS[currentData.riskLevel].dot} ring-2 ring-white shadow-xs`} />
-            <div className="min-w-0">
-              <div className="text-sm font-black text-slate-900 truncate flex items-center gap-1.5">
-                <span>{currentData.name}</span>
-                <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${RISK_LABELS[currentData.riskLevel].badge}`}>
-                  {RISK_LABELS[currentData.riskLevel].label}
-                </span>
-              </div>
-              <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
-                Zona: <span className="text-slate-700">{currentData.sectorName}</span>
+          {selectedDistrict ? (
+            <div className="flex items-center gap-2.5 min-w-0">
+              <span className={`w-3.5 h-3.5 rounded-full shrink-0 ${RISK_LABELS[currentData.riskLevel].dot} ring-2 ring-white shadow-xs`} />
+              <div className="min-w-0">
+                <div className="text-sm font-black text-slate-900 truncate flex items-center gap-1.5">
+                  <span>{currentData.name}</span>
+                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border ${RISK_LABELS[currentData.riskLevel].badge}`}>
+                    {RISK_LABELS[currentData.riskLevel].label}
+                  </span>
+                </div>
+                <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
+                  Zona: <span className="text-slate-700">{currentData.sectorName}</span>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
+          ) : (
+            <div className="flex items-center gap-2.5 min-w-0">
+              <div className="w-7 h-7 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                <Layers className="w-3.5 h-3.5" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-black text-slate-900 truncate flex items-center gap-1.5">
+                  <span>Vista General Metropolitana</span>
+                  <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full border bg-blue-50 text-blue-700 border-blue-200">
+                    {Object.keys(LIMA_DISTRICTS).length} Distritos
+                  </span>
+                </div>
+                <div className="text-[11px] text-slate-500 font-medium truncate mt-0.5">
+                  Consolidado oficial de Lima Metropolitana
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="flex items-center gap-1.5 shrink-0">
             <span className="font-mono text-xs font-bold text-slate-700 bg-slate-100 px-2 py-0.5 rounded-md">
               {currentData.officialComplaints.toLocaleString()}
             </span>
+            {selectedDistrict && (
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDistrictChange(null);
+                }}
+                className="w-6 h-6 rounded-lg bg-slate-100 hover:bg-red-50 text-slate-400 hover:text-red-600 flex items-center justify-center transition-colors cursor-pointer"
+                title="Deseleccionar distrito (Ver toda Lima)"
+              >
+                <X className="w-3.5 h-3.5" />
+              </span>
+            )}
             <ChevronDown
               className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
                 isDropdownOpen ? 'rotate-180 text-blue-600' : ''
@@ -150,6 +182,46 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
 
             {/* Lista Scrollable de Distritos */}
             <div className="max-h-64 overflow-y-auto p-1.5 space-y-1" role="listbox">
+              {/* Opción de Vista General Metropolitana (Deseleccionar) */}
+              <button
+                type="button"
+                onClick={() => {
+                  onDistrictChange(null);
+                  setIsDropdownOpen(false);
+                  setSearchQuery('');
+                }}
+                className={`w-full text-left p-2.5 rounded-xl transition-all flex items-center justify-between gap-2.5 border-b border-slate-100 ${
+                  selectedDistrict === null
+                    ? 'bg-blue-50 text-blue-950 font-bold border border-blue-200 shadow-2xs'
+                    : 'hover:bg-slate-50 text-slate-800'
+                }`}
+                role="option"
+                aria-selected={selectedDistrict === null}
+              >
+                <div className="flex items-center gap-2.5 min-w-0">
+                  <div className="w-6 h-6 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0">
+                    <Layers className="w-3.5 h-3.5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-xs font-bold text-slate-900 truncate">
+                      Vista General Metropolitana
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-medium truncate">
+                      Todos los distritos (Consolidado)
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="font-mono text-[11px] text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded font-bold">
+                    {METRO_STATS.officialComplaints.toLocaleString()}
+                  </span>
+                  {selectedDistrict === null && (
+                    <Check className="w-3.5 h-3.5 text-blue-600 stroke-[3]" />
+                  )}
+                </div>
+              </button>
+
               {filteredDistricts.length === 0 ? (
                 <div className="p-4 text-center text-xs text-slate-400 font-medium">
                   No se encontraron distritos con &ldquo;{searchQuery}&rdquo;
@@ -163,7 +235,11 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
                       key={d.key}
                       type="button"
                       onClick={() => {
-                        onDistrictChange(d.key);
+                        if (isSelected) {
+                          onDistrictChange(null); // deselecciona si se vuelve a presionar el mismo
+                        } else {
+                          onDistrictChange(d.key);
+                        }
                         setIsDropdownOpen(false);
                         setSearchQuery('');
                       }}
@@ -206,7 +282,7 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
 
             {/* Pie del Menú con Resumen */}
             <div className="px-3 py-1.5 bg-slate-50/80 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-medium">
-              <span>{filteredDistricts.length} distritos monitoreados</span>
+              <span>{filteredDistricts.length} de {Object.keys(LIMA_DISTRICTS).length} distritos monitoreados</span>
               <span className="font-mono">PNP Lima</span>
             </div>
           </div>
@@ -247,34 +323,41 @@ export const RadarPanel: React.FC<RadarPanelProps> = ({
       </div>
 
       {/* Gráfico de Tendencia Histórica Oficial */}
-      <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2.5 shadow-xs">
+      <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2 shadow-xs">
         <div className="flex justify-between items-center text-xs">
           <span className="font-bold text-slate-700 flex items-center gap-1.5">
             <TrendingUp className="w-3.5 h-3.5 text-blue-600" />
             Tendencia Histórica de Denuncias
           </span>
-          <span className="text-[10px] font-mono text-slate-400">Oficial</span>
+          <span className="text-[10px] font-mono text-slate-400">Oficial (2018-2026)</span>
         </div>
 
         <div className="space-y-1.5 pt-1 text-[11px] font-medium text-slate-600">
-          {currentData.yearlyTrend.map((t) => {
-            const maxVal = currentData.yearlyTrend[currentData.yearlyTrend.length - 1].count;
-            const pct = Math.max(15, Math.round((t.count / maxVal) * 100));
-            return (
-              <div key={t.year} className="flex items-center gap-2">
-                <span className="w-8 font-mono text-[10px]">{t.year}</span>
-                <div className="flex-1 bg-slate-200 rounded-full h-2.5 overflow-hidden">
-                  <div
-                    className="bg-blue-600 h-full rounded-full transition-all duration-500"
-                    style={{ width: `${pct}%` }}
-                  />
+          {(() => {
+            const maxVal = Math.max(...currentData.yearlyTrend.map((t) => t.count), 1);
+            return currentData.yearlyTrend.map((t) => {
+              const pct = t.count > 0 ? Math.max(6, Math.round((t.count / maxVal) * 100)) : 0;
+              const isPeakYear = t.count === maxVal && t.count > 0;
+              return (
+                <div key={t.year} className="flex items-center gap-2">
+                  <span className={`w-8 font-mono text-[10px] ${isPeakYear ? 'font-bold text-blue-700' : 'text-slate-500'}`}>
+                    {t.year}
+                  </span>
+                  <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all duration-500 ${
+                        isPeakYear ? 'bg-red-500' : 'bg-blue-600'
+                      }`}
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <span className={`font-mono text-[10px] w-12 text-right ${isPeakYear ? 'font-bold text-red-600' : 'text-slate-700'}`}>
+                    {t.count.toLocaleString()}
+                  </span>
                 </div>
-                <span className="font-mono text-[10px] text-slate-700 w-10 text-right">
-                  {t.count}
-                </span>
-              </div>
-            );
-          })}
+              );
+            });
+          })()}
         </div>
       </div>
 

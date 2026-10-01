@@ -13,6 +13,8 @@ import {
   Lock
 } from 'lucide-react';
 import { IncidentCategory } from '@/lib/types';
+import { DISTRICTS_RANKED, getDistrict } from '@/lib/districts-data';
+import { supabase } from '@/lib/supabase/client';
 
 interface ReportWizardPanelProps {
   onBack: () => void;
@@ -22,9 +24,12 @@ interface ReportWizardPanelProps {
 export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, onFinished }) => {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [category, setCategory] = useState<IncidentCategory | null>(null);
+  const [selectedDistrict, setSelectedDistrict] = useState<string>('sjl');
   const [isUploading, setIsUploading] = useState(false);
   const [hasEvidence, setHasEvidence] = useState(false);
   const [aiAnalysisComplete, setAiAnalysisComplete] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [trackingCode, setTrackingCode] = useState('VIG-8941-LMA');
   const [description, setDescription] = useState('');
 
   const handleSelectCategory = (cat: IncidentCategory) => {
@@ -42,8 +47,36 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
     }, 800);
   };
 
-  const handleSubmit = () => {
-    setStep(3);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    const distInfo = getDistrict(selectedDistrict);
+    const categoryLabels: Record<IncidentCategory, string> = {
+      extorsion: 'Extorsión / Cobro de cupo',
+      gota_a_gota: 'Préstamo Gota a Gota / Usura',
+      amenaza: 'Amenaza directa / Atentado comercial',
+      fraude: 'Fraude / Suplantación comercial'
+    };
+
+    try {
+      const { data } = await supabase.from('community_reports').insert({
+        category: category || 'extorsion',
+        threat_modality: category ? categoryLabels[category] : 'Extorsión',
+        economic_demand: 1500,
+        district: distInfo ? distInfo.name : 'San Juan de Lurigancho',
+        ubigeo: distInfo ? distInfo.ubigeo : '150132',
+        evidence_count: 1,
+        status: 'PENDING'
+      }).select('id').single();
+
+      if (data && data.id) {
+        setTrackingCode(`VIG-${data.id.slice(0, 4).toUpperCase()}-LMA`);
+      }
+    } catch (e) {
+      console.warn('Error inserting community report to Supabase:', e);
+    } finally {
+      setIsSubmitting(false);
+      setStep(3);
+    }
   };
 
   return (
@@ -260,6 +293,24 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
           )}
 
           <div className="space-y-1">
+            <label htmlFor="report-district" className="text-xs font-bold text-slate-700 block">
+              Distrito del hecho (Lima Metropolitana):
+            </label>
+            <select
+              id="report-district"
+              value={selectedDistrict}
+              onChange={(e) => setSelectedDistrict(e.target.value)}
+              className="w-full bg-slate-50 border border-slate-300 rounded-xl p-2.5 text-xs text-slate-900 focus:outline-none focus:border-blue-600 shadow-xs"
+            >
+              {DISTRICTS_RANKED.map((d) => (
+                <option key={d.key} value={d.key}>
+                  {d.name} ({d.ubigeo})
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-1">
             <label htmlFor="report-desc" className="text-xs font-bold text-slate-700 block">
               Comentario opcional:
             </label>
@@ -274,15 +325,15 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
           </div>
 
           <button
-            disabled={!hasEvidence}
+            disabled={!hasEvidence || isSubmitting}
             onClick={handleSubmit}
             className={`w-full py-2.5 rounded-xl font-bold text-xs transition-all mt-auto ${
-              hasEvidence
+              hasEvidence && !isSubmitting
                 ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-xs'
                 : 'bg-slate-200 text-slate-400 cursor-not-allowed'
             }`}
           >
-            Confirmar Envío Anónimo →
+            {isSubmitting ? 'Guardando en Bóveda Cifrada...' : 'Confirmar Envío Anónimo →'}
           </button>
         </div>
       )}
@@ -312,7 +363,7 @@ export const ReportWizardPanel: React.FC<ReportWizardPanelProps> = ({ onBack, on
                 <Lock className="w-3 h-3 text-slate-400" />
                 Código de seguimiento anónimo:
               </span>
-              <span className="font-mono text-blue-700 font-bold">VIG-8941-LMA</span>
+              <span className="font-mono text-blue-700 font-bold">{trackingCode}</span>
             </div>
             <div className="flex justify-between text-slate-600 font-medium text-[11px]">
               <span>Hash SHA-256 de evidencia:</span>

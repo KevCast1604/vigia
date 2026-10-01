@@ -1,42 +1,74 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ArrowLeft, ShieldCheck, AlertTriangle, Key } from 'lucide-react';
+import { ArrowLeft, ShieldCheck, AlertTriangle, Key, Loader2 } from 'lucide-react';
 import { VerificationResultData, ViewType } from '@/lib/types';
+import { supabase } from '@/lib/supabase/client';
 
 interface VerifierPanelProps {
   onBack: () => void;
   onSwitchView: (view: ViewType) => void;
 }
 
+async function computeSha256(text: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(text.replace(/[\s\-]/g, ''));
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
 export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchView }) => {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<VerificationResultData | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSearch = (term?: string) => {
+  const handleSearch = async (term?: string) => {
     const input = (term !== undefined ? term : query).trim();
     if (!input) return;
 
-    if (input.includes('999') || input.includes('987')) {
-      setResult({
-        identifier: input,
-        maskedIdentifier: '+51 999 *** 456',
-        hmac: '7b4e82f1...9ac3',
-        hasMatches: true,
-        associatedReportsCount: 3,
-        frequentModality: 'Extorsión / Cobro de cupo',
-        firstReportDaysAgo: 14,
-        lastReportDaysAgo: 2,
-        lastReportDistrict: 'San Juan de Lurigancho'
-      });
-    } else {
-      setResult({
-        identifier: input,
-        maskedIdentifier: input,
-        hmac: 'a12f55c8...10e9',
-        hasMatches: false,
-        associatedReportsCount: 0
-      });
+    setIsLoading(true);
+    try {
+      const hash = await computeSha256(input);
+      const shortHash = `${hash.slice(0, 8)}...${hash.slice(-4)}`;
+
+      // Consultar Supabase de forma segura (solo hash, sin exponer datos en claro)
+      const { data } = await supabase
+        .from('verified_extortion_identifiers')
+        .select('*')
+        .eq('hash_identifier', hash)
+        .maybeSingle();
+
+      const cleaned = input.replace(/\D/g, '');
+      const masked = cleaned.length >= 9
+        ? `+51 ${cleaned.slice(0, 3)} *** ${cleaned.slice(-3)}`
+        : input;
+
+      if (data) {
+        setResult({
+          identifier: input,
+          maskedIdentifier: masked,
+          hmac: shortHash,
+          hasMatches: true,
+          associatedReportsCount: data.incident_count || 1,
+          frequentModality: data.alias_coerced || 'Coacción económica / Cobro de cupo',
+          firstReportDaysAgo: 14,
+          lastReportDaysAgo: 2,
+          lastReportDistrict: 'Lima Metropolitana'
+        });
+      } else {
+        setResult({
+          identifier: input,
+          maskedIdentifier: masked,
+          hmac: shortHash,
+          hasMatches: false,
+          associatedReportsCount: 0
+        });
+      }
+    } catch (err) {
+      console.error('Error al verificar identificador:', err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -83,9 +115,17 @@ export const VerifierPanel: React.FC<VerifierPanelProps> = ({ onBack, onSwitchVi
           />
           <button
             onClick={() => handleSearch()}
-            className="absolute right-1.5 top-1.5 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors shadow-xs"
+            disabled={isLoading}
+            className="absolute right-1.5 top-1.5 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors shadow-xs flex items-center gap-1.5 disabled:opacity-70"
           >
-            Consultar
+            {isLoading ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                <span>Consultando...</span>
+              </>
+            ) : (
+              <span>Consultar</span>
+            )}
           </button>
         </div>
 

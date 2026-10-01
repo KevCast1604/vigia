@@ -1,6 +1,6 @@
 export type ViewType = 'radar' | 'verifier' | 'report';
 
-export type DistrictKey = 'sjl' | 'smp' | 'comas' | 'ate' | 'lima' | 'ves' | 'los-olivos' | 'chorrillos';
+export type DistrictKey = string;
 
 export interface DistrictStats {
   key: DistrictKey;
@@ -15,6 +15,7 @@ export interface DistrictStats {
     year: number;
     count: number;
   }[];
+  crimesSummary?: Record<string, number>;
 }
 
 export interface VerificationResultData {
